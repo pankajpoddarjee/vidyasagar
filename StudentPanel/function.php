@@ -1,5 +1,5 @@
 <?php
-include("configuration.php");
+//include("configuration.php");
 function transformInput($val)
 {
 	$finalval	=	trim($val);
