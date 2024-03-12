@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*@page {
+  size: A7;
+  margin:0 auto;
+}
+@media print {
+  html, body {
+    width:8.5cm; max-width:8.5cm; height:5.28cm; max-height:5.28cm;
+  }
+}
+
+body { margin:0 auto; padding:0 }
+
+.tbl { width:8.5cm; max-width:8.5cm; height:5.28cm; max-height:5.28cm; font-family:Arial, Helvetica, sans-serif; font-size:10px; text-align:left}
+
+.bg { background:#243b7f; color:#FFF }*/
+
+@media print 
+{
+   @page
+   {
+    size: 8.6cm 5.4cm;
+  }
+  .tbl { width:8.4cm; max-width:8.4cm; height:5.0cm; max-height:5.0cm; font-family:Arial, Helvetica, sans-serif; font-size:10px; text-align:left; page-break-after: always; padding:5px 0 0 0; }
+  .bg { background:#243b7f; color:#FFF }
+}
+
+body { margin:0 auto; padding:0 }
+
+.tbl { width:8.4cm; max-width:8.4cm; height:5.0cm; max-height:5.0cm; font-family:Arial, Helvetica, sans-serif; font-size:10px; text-align:left}
+
+.bg { background:#243b7f; color:#FFF }

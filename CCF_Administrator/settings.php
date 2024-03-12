@@ -1,0 +1,1 @@
+<?php include('../configuration_CCF.php');?>
