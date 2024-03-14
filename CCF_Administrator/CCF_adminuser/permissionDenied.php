@@ -1,4 +1,4 @@
-<?php include('../../settings.php');?>
+<?php include('../settings.php');?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
 <meta name="viewport" content="<?php echo VIEWPORT;?>">
 <meta name="description" content="">
 <title><?php echo COLLEGE_CODE; ?> | <?php echo PROGRAMME_CODE; ?> | Permission denied</title>
-<?php include("../../head_includes.php");?>
+<?php include("../head_includes.php");?>
 </head>
 <body class="bg">    
     <div id="content">
@@ -27,7 +27,7 @@
                         <div style="margin:5px 0; line-height:22px" class="overflow-hidden p-5 text-center font-weight-bold">
 							<?php session_start(); echo 
 							"<i class='fa fa-times-circle faa-flash animated text-danger' style='font-size:36px'></i><br>
-							You don't have permission to access this page."
+							You don't have permission to access this page55555."
 							;?>
                             <br><br>
                             <a class="btn btn-info btn-sm" href="logoutuser.php"><i class="fa fa-sign-in mr-2"></i>Click here to Log-in</a>                            

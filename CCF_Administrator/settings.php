@@ -1,1 +1,1 @@
-<?php include('../configuration_CCF.php');?>
+<?php include('../../configuration_CCF.php');?>

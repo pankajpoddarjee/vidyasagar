@@ -34,4 +34,4 @@
 		});
 	});
 </script>
-<script src="adminuser_js/admin_dashboard.js"></script>
+<script src="<?php echo BASE_URL;?>/CCF_Administrator/CCF_adminuser/adminuser_js/admin_dashboard.js"></script>

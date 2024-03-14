@@ -173,17 +173,23 @@ a.article:hover {
 <div class="wrapper d-print-none">
     <!-- Sidebar  -->
 <?php  
-if($usertype=='ADMIN')
-include("headermenu_admin.php");
 
-else if($usertype=='SUPERADMIN')
-include("headermenu_superadmin.php");
+include("headermenu_lms.php");
+// include("headermenu_admin.php");
+// if($usertype=='ADMIN')
+// include("headermenu_admin.php");
 
-else if($usertype=='DATAUPDATER')
-include("headermenu_dataupdater.php");
+// else if($usertype=='SUPERADMIN')
+// include("headermenu_superadmin.php");
 
-else if($usertype=='SYSTEMCREATOR')
-include("headermenu_systemcreator.php");
+// else if($usertype=='DATAUPDATER')
+// include("headermenu_dataupdater.php");
+
+// else if($usertype=='SYSTEMCREATOR')
+// include("headermenu_systemcreator.php");
+
+
+
  
 
 //include("headermenu_superadmin.php"); 

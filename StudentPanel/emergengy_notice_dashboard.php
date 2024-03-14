@@ -1,3 +1,0 @@
-<!--<div class="col-md-12 mb-4 text-dark text-center font-weight-bold bg-warning p-3">
-<i class="fa fa-exclamation-triangle faa-flash faa-fast animated text-danger"></i> IMPORTANT UPDATE<br>Candidate must upload all the required documents within stipulated closing time of the application process and press the <span class="btn btn-sm btn-danger mb-1"><i class="fa fa-upload"></i> Upload</span> button to complete the document upload process. After pressing the Upload button, you will be redirected to your dashboard page where you can see your <span class="btn btn-success mb-3"><i class="fa fa-check-circle-o"></i> Application is Completed.</span> <span class="text-danger">otherwise you application will not be considered for the Merit List.</span>
-</div>-->

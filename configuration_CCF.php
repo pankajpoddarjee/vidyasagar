@@ -10,9 +10,9 @@ define("BASE_TIME_ZONE","Asia/Calcutta");
 
 define("VIEWPORT","width=device-width, initial-scale=1.0, user-scalable=0");//width=device-width, initial-scale=1, shrink-to-fit=no (bootstrap 4)
 
-define("BASE_URL","https://vmc.collegeadmission.in/VMC_SDMS");
-define("BASE_URL_HOME","https://vmc.collegeadmission.in/VMC_SDMS");
-define("BASE_URL_STUDENT","https://vmc.collegeadmission.in/VMC_SDMS/CCF_StudentPanel"); // CCF
+define("BASE_URL","http://localhost/VMC_SDMS");
+define("BASE_URL_HOME","http://localhost/VMC_SDMS");
+define("BASE_URL_STUDENT","http://localhost/VMC_SDMS/CCF_StudentPanel"); // CCF
 define("BASE_ROOT_FOLDER","/VMC_SDMS"); 
 define("SOFTWARE_NAMECODE","Student Management System");
 
