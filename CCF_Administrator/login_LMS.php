@@ -63,6 +63,7 @@
 						<option value="">Select</option>
 						<!--<option value="CBCS">CBCS</option>-->
 						<option value="CCF">CCF</option>
+            <option value="teacher">TEACHER</option>
 						</select>
                        
 						</div>

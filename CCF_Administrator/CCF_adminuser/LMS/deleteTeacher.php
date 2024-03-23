@@ -4,8 +4,7 @@
  include("../../../configuration_CCF.php");
  include("lmsfunction.php");
 
-
-$course_id = $_POST["delete_course_id"];
+$teacher_id = $_POST["delete_teacher_id"];
 $status = $_POST["new_satus"];
 if($status == 'Active'){
     $new_status = '1';
@@ -13,22 +12,19 @@ if($status == 'Active'){
     $new_status = '0'; 
 }
    
- if(isset($course_id ) && $course_id !=''){
+ if(isset($teacher_id ) && $teacher_id !=''){
     	 
-    $qryDelete = $dbConn->prepare('UPDATE LMS_course_master SET is_active = :is_active WHERE course_id = :course_id');
+    $qryDelete = $dbConn->prepare('UPDATE LMS_teacher_master SET is_active = :is_active WHERE teacher_id = :teacher_id');
 
     $qryDelete->execute([
-        'course_id' => $course_id,
+        'teacher_id' => $teacher_id,
         'is_active' => $new_status
     ]);
     if($qryDelete){
-        $courseQry = $dbConn->prepare("select * FROM LMS_course_master order by is_active desc, course_name desc");
-        $courseQry->execute();
-        $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
-
+        $teacherRecord = getTeacherAllData();
         $arr["status"]=1;
 		$arr["msg"]="Status updated successfully";	
-        $arr["courseRecord"]=$courseRecord;
+        $arr["teacherRecord"]=$teacherRecord;
     }else{
         $arr["status"]=0;
         $arr["msg"]="Something Went Wrong";   

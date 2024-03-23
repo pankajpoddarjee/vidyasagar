@@ -2,6 +2,7 @@
  include("../../../connection_CCF.php");
  include("../../function.php");
  include("../../../configuration_CCF.php");
+ include("lmsfunction.php");
 
 
 $course_id = transformInput($_POST["course_id"]);
@@ -25,9 +26,7 @@ $course_name = transformInput($_POST["course_name"]);
                 'course_name' => $course_name
             ]);
             if($qryUpdate){
-                $courseQry = $dbConn->prepare("select * FROM LMS_course_master  order by course_name ASC");
-                $courseQry->execute();
-                $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
+                $courseRecord = getCourseAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Updated";	
@@ -54,9 +53,7 @@ $course_name = transformInput($_POST["course_name"]);
                 'course_name' => $course_name
             ]);
             if($qryInsert){
-                $courseQry = $dbConn->prepare("select * FROM LMS_course_master  order by course_name ASC");
-                $courseQry->execute();
-                $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
+                $courseRecord = getCourseAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Saved";	

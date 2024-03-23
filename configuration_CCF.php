@@ -9,14 +9,13 @@ error_reporting(E_ALL); */
 define("BASE_TIME_ZONE","Asia/Calcutta");
 
 define("VIEWPORT","width=device-width, initial-scale=1.0, user-scalable=0");//width=device-width, initial-scale=1, shrink-to-fit=no (bootstrap 4)
-
-define("BASE_URL","http://localhost/VMC_SDMS");
-define("BASE_URL_HOME","http://localhost/VMC_SDMS");
-define("BASE_URL_STUDENT","http://localhost/VMC_SDMS/CCF_StudentPanel"); // CCF
+//define("BASE_URL","http://110.227.107.223/VMC_SDMS");// WITH IPv4
+define("BASE_URL","http://office-5/VMC_SDMS");
+define("BASE_URL_HOME","http://office-5/VMC_SDMS");
+define("BASE_URL_STUDENT","http://office-5/VMC_SDMS/CCF_StudentPanel"); // CCF
 define("BASE_ROOT_FOLDER","/VMC_SDMS"); 
 define("SOFTWARE_NAMECODE","Student Management System");
-
-define("GOOGLE_FONT_1","https://fonts.googleapis.com/css?family=Poppins|Roboto");
+define("GOOGLE_FONT_1","https://fonts.googleapis.com/css?family=Poppins|Roboto|Rubik|Viga|Oswald|AR+One+Sans|Inter:wght@400;600&display=swap");
 define("FONT_AWESOME_CSS","https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css");
 define("SESSIONYR","2023-24");
 
@@ -126,4 +125,6 @@ define("CA_URL","https://www.collegeadmission.in/Scottish/admission_notice.shtml
 //define("SESSIONNAME","0");
     $local_timezone = BASE_TIME_ZONE;
     date_default_timezone_set($local_timezone);
+
+   
 ?>

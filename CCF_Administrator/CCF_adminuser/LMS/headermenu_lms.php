@@ -172,29 +172,52 @@ a.article:hover {
 <link rel="stylesheet" href="<?php echo BASE_URL_HOME;?>/bootstrap/css/menuScrollbar.min.css">
 <div class="wrapper d-print-none">
     <!-- Sidebar  -->
-<?php  
+    <nav id="sidebar">
+    <div class="sidebar-header p-2">
+        <a class="text-light text-decoration-none" href="javascript:void(0)">
+            <div class="row p-0 m-0">
+                <div class="col-2 text-center p-0 ml-1">
+                    <i class="fa fa-user ml-2 mr-2 text-secondary" style="font-size:34px"></i>
+                </div>
+                <div class="col-9 p-0 m-0">
+                    <span class="ml-1"><?php   echo $adminusername;?> </span>
+                    <small class=" align-text-top text-light ml-1 d-block"> <?php echo $usertype;?> Type</small>
+                </div>
+            </div>
+        </a>
+    </div>
 
-
-include("headermenu_admin.php");
-if($usertype=='ADMIN')
-include("headermenu_admin.php");
-
-else if($usertype=='SUPERADMIN')
-include("headermenu_superadmin.php");
-
-else if($usertype=='DATAUPDATER')
-include("headermenu_dataupdater.php");
-
-else if($usertype=='SYSTEMCREATOR')
-include("headermenu_systemcreator.php");
-
-
-
- 
-
-//include("headermenu_superadmin.php"); 
-
-?>
+    <ul class="list-unstyled components">
+        <!--<p class="pt-0 pb-0"><i class="fa fa-spinner faa-spin animated mr-2"></i>Application Process</p>-->
+        <li>
+            <a href="dashboard.php"><i class="fa fa-tachometer mr-2"></i>Dashboard</a>
+        </li>
+      
+         <li>
+            <a href="#mastersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-gear faa-spin animated mr-2"></i>Masters</a>
+            <ul class="collapse list-unstyled" id="mastersSubmenu">
+                <li>
+                    <a href="course_master.php"><i class="fa-solid fa-gears mr-2"></i>Course Master</a>
+                </li>
+                <li>
+                    <a href="stream_master.php"><i class="fa-solid fa-gears mr-2"></i>Stream Master</a>
+                </li>
+                <li>
+                    <a href="department_master.php"><i class="fa-solid fa-gears mr-2"></i>Department Master</a>
+                </li>
+                <li>
+                    <a href="teacher_master.php"><i class="fa-solid fa-gears mr-2"></i>Teacher Master</a>
+                </li>
+                <li>
+                    <a href="upload_material.php"><i class="fa-solid fa-gears mr-2"></i>Upload Material</a>
+                </li>
+            </ul>
+        </li> 
+    </ul>
+</nav>
 
     
 </div>
+
+
+	

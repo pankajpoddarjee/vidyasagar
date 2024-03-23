@@ -13,13 +13,10 @@ $adminusername = $_SESSION['user'];
 $adminuserid= $_SESSION["userid"];
 
 $usertype = $_SESSION['usertype'];
-  
-  
- //echo $sqldb;
 
-$qry = "SELECT permission  FROM role where ".$usertype."=1 ;";
 
-//die($qry);
+/*$qry = "SELECT permission  FROM role where ".$usertype."=1 ;";
+
 $record = array();
 $phase = array();
 $resultset = $dbConn->query($qry);
@@ -62,13 +59,11 @@ $permissionurlarr[]= createURL($record[$i]);
  
 
 $absolute_url =strtolower(full_url($_SERVER ));
-/*  print_r($permissionurlarr);
-   echo $absolute_url;
-   exit; */ 
+
 if(!in_array(trim($absolute_url),$permissionurlarr)){
 	 
  header("location: permissionDenied.php ");
-}
+}*/
  
 
 ?>

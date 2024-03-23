@@ -1,10 +1,16 @@
 <?php /*?><?php include("modals.php");?><?php */?>
 <link href="<?php echo GOOGLE_FONT_1;?>" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 <link href="<?php echo FONT_AWESOME_CSS;?>" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3b1cd5c4d8.js" crossorigin="anonymous"></script>
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/font-awesome-animation.min.css" rel="stylesheet">
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/table_style.css" rel="stylesheet">
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/multi_select.css" rel="stylesheet">
+<link href="<?php echo BASE_URL_HOME;?>/bootstrap/toast/toast.css" rel="stylesheet">
+<!-- <style type="text/css" media="screen">@import "/bootstrap/css/filtergrid.css";</style> -->
+<link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/filtergrid.css" rel="stylesheet">
 <script src="<?php echo BASE_URL_HOME;?>/bootstrap/js/popper.min.js"></script>
+<script language="javascript" type="text/javascript"  src="<?php echo BASE_URL_HOME;?>/bootstrap/js/tablefilter.js"></script>
 <script>
 $(function () {
 $('[data-toggle="popover"]').popover()
@@ -18,6 +24,17 @@ $('[data-toggle="tooltip"]').tooltip()
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo BASE_URL_HOME;?>/bootstrap/js/multi_select.js"></script>
 <script src="<?php echo BASE_URL_HOME;?>/bootstrap/js/scrollreveal.min.js"></script>
+<script src="<?php echo BASE_URL_HOME;?>/bootstrap/toast/toast.js"></script>
+<!--Data Table Start-->
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/dataTables.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/buttons.dataTables.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/jszip.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/pdfmake.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/buttons.print.min.js"></script>
+<!--Data Table Ends-->
 <script>
 window.sr = ScrollReveal();		
 	sr.reveal('.info1', {
@@ -49,6 +66,31 @@ window.sr = ScrollReveal();
 	sr.reveal('.steps_follow_animation', {reset: true, mobile: false}, 40);
 	sr.reveal('.steps_follow_animation2', {reset: true, mobile: false}, 30);
 	sr.reveal('.steps_follow_animation3', {reset: true, mobile: false}, 150);
+</script>
+<script>
+
+var table_filter_Props = {
+        col_0: "select",
+        col_1: "select",
+        col_2: "select",
+        col_3: "select",
+        col_4: "select",
+        col_5: "select",
+        col_6: "select",
+        col_7: "select",
+        col_8: "select",
+        col_9: "select",
+        col_10: "select",
+        col_11: "select",
+        col_12: "select",
+        col_13: "select",
+        col_14: "select",
+        col_15: "select",
+        col_16: "select",
+        display_all_text: "All",
+        sort_select: true
+    };
+    setFilterGrid("table-for-filter", table_filter_Props);
 </script>
 <style>
 .lds-roller {

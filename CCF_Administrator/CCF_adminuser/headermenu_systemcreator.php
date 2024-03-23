@@ -68,6 +68,9 @@
                     <a href="retreive_IDCARD.php"><i class="fa fa-print mr-2"></i>Print ID Card</a>
                 </li>
             </ul>
+        </li>
+        <li>
+            <a href="LMS/course_master.php"><i class="fa fa-tachometer mr-2"></i>LMS</a>
         </li> 
     </ul>
 </nav>
