@@ -7,7 +7,8 @@ include("../../configuration_CCF.php");
 //print_r($semesters);
 //$collegerollno = $_POST["txtrollno"]; 
 $collegerollno = $_SESSION["studcollegeRollNo"];
-$student_stream = $_SESSION["student_stream"];
+$student_stream = isset($_SESSION["student_stream"])?$_SESSION["student_stream"]:'';
+$student_subject = isset($_SESSION["student_subject"])?$_SESSION["student_subject"]:'';
 
 include("../Query_dashboard.php");
 
@@ -18,7 +19,7 @@ $qryresult = NULL;
 $contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
 left join LMS_department_master as dm on dm.department_id = sm.department_id
 left join LMS_material_master as mm on mm.material_id = sm.material_id
-left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id where stream.stream_code= '".$student_stream."' order by sc.content_id desc");
+left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id where stream.stream_code= '".$student_stream."' and  dm.department_name= '".$student_subject."' order by sc.content_id desc");
 $contentQry->execute();
 $contentRecord = $contentQry->fetchAll(PDO::FETCH_ASSOC);
 $dbConn = NULL;

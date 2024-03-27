@@ -16,7 +16,7 @@ $DOBmm  = $_POST["choDOBmm"];
 $DOByy  = $_POST["choDOByy"];
 
 
- $qry	=	"select st.applicationNo,st.name,ISNULL(st.passOutStatus,'') as passOutStatus,st.collegeRollNo, ccm.stream from studentmaster st
+ $qry	=	"select st.applicationNo,st.name,ISNULL(st.passOutStatus,'') as passOutStatus,st.collegeRollNo, ccm.stream, ccm.subjectNameDisplay from studentmaster st
 JOIN College_CourseMaster ccm ON ccm.subjectcode=st.appsubjectcode where   ccm.subjectcode='".$dept."' and st.collegeRollNo='".$rollno."' and st.dd=".$DOBdd." and st.mm=".$DOBmm." and st.yy=".$DOByy." and ISNULL(st.studentActiveStatus,0)=1;";
  
 /*if($courseType=='CBCS'){
@@ -41,6 +41,7 @@ if($qryresult) {
 	 $_SESSION["candidateloggedin"]=1;
 	 $_SESSION["studentname"]=$record[0]["name"];
 	 $_SESSION["student_stream"]=$record[0]["stream"];
+	 $_SESSION["student_subject"]=$record[0]["subjectNameDisplay"];
 	 $_SESSION["studcollegeRollNo"]=$record[0]["collegeRollNo"];
 	 $arr["status"]=1;
 	 $arr["msg"]=""; 
