@@ -205,32 +205,12 @@ a.article:hover {
             <form id="frmdashboard" name="frmdashboard" action="<?php echo BASE_URL_STUDENT;?>/dashboard.php" method="post">
             	<input type="hidden" id="txtrollno" name="txtrollno" value="<?php echo $_SESSION["studcollegeRollNo"];?>" />
             </form>
-			 <a href="javascript: void(0)" onclick="javascript: $('#frmdashboard').submit()"><i class="fa fa-tachometer mr-2"></i>Dashboard</a>
+			 <a href="dashboard_lms.php" ><i class="fa fa-tachometer mr-2"></i>Dashboard</a>
 			
             </li> 
-			<form id="frmnext" name="frmnext" action="" method="post" >
-					<input type="hidden" id="txtcollegerollno" name="txtcollegerollno"  value="<?php echo $collegerollno;?>"/>
-				</form>
-			 
-			<li>
-			 <a href="javascript: void(0)" onclick="gonextfor('studentInfo','<?php echo BASE_URL_STUDENT;?>')"><i class="fa fa-user mr-2"></i>Student Information </a>
-            </li>
-			<li>
-			 <a href="javascript: void(0)"  onclick="gonextfor('courseDetail','<?php echo BASE_URL_STUDENT;?>')"><i class="fa fa-book mr-2"></i>Course Detail</a>
-            </li>
-			<li>
-			 <a href="javascript: void(0)"  onclick="gonextfor('paymentDetail','<?php echo BASE_URL_STUDENT;?>')"><i class="fa fa-inr mr-2"></i>Pay Online</a>
-            </li> 			
+		
             <li>
-                <a href="#printSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-print mr-2"></i>Print</a>
-                <ul class="collapse list-unstyled" id="printSubmenu">
-                   <li>
-						<a href="javascript: void(0)"  onclick="gonextfor('paymentreciept','<?php echo BASE_URL_STUDENT;?>')"><i class="fa fa-print mr-2"></i>Print Payment Reciept</a>
-					</li> 
-                </ul>
-            </li>
-            <li>
-			 <a href="LMS/dashboard_lms.php" ><i class="fa fa-inr mr-2"></i>LMS</a>
+			 <a href="view_study_material.php" ><i class="fa fa-inr mr-2"></i>LMS</a>
             </li> 
 			
             

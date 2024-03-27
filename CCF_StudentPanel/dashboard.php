@@ -4,7 +4,8 @@ include("../connection_CCF.php");
 include("function.php");
 include("../configuration_CCF.php");
 
-$collegerollno = $_POST["txtrollno"]; 
+//$collegerollno = $_POST["txtrollno"]; 
+$collegerollno = $_SESSION["studcollegeRollNo"];
 
 include("Query_dashboard.php");
 

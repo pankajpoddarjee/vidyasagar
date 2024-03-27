@@ -1,6 +1,6 @@
 <?php
 session_start();
- include("../connection_CCF.php");
+include("../connection_CCF.php");
 include("function.php");
 include("../configuration_CCF.php");
 $cnt = 0;
@@ -16,8 +16,8 @@ $DOBmm  = $_POST["choDOBmm"];
 $DOByy  = $_POST["choDOByy"];
 
 
-$qry	=	"select applicationNo,name,ISNULL(passOutStatus,'') as passOutStatus,collegeRollNo from studentmaster st
-JOIN College_CourseMaster ccm ON ccm.subjectcode=st.appsubjectcode where   ccm.subjectcode='".$dept."' and st.collegeRollNo='".$rollno."' and dd='".$DOBdd."' and mm='".$DOBmm."' and yy='".$DOByy."' and ISNULL(studentActiveStatus,0)=1;";
+ $qry	=	"select st.applicationNo,st.name,ISNULL(st.passOutStatus,'') as passOutStatus,st.collegeRollNo, ccm.stream from studentmaster st
+JOIN College_CourseMaster ccm ON ccm.subjectcode=st.appsubjectcode where   ccm.subjectcode='".$dept."' and st.collegeRollNo='".$rollno."' and st.dd=".$DOBdd." and st.mm=".$DOBmm." and st.yy=".$DOByy." and ISNULL(st.studentActiveStatus,0)=1;";
  
 /*if($courseType=='CBCS'){
 $qryresult = $dbConn->query($qry);
@@ -40,7 +40,8 @@ if($qryresult) {
  {
 	 $_SESSION["candidateloggedin"]=1;
 	 $_SESSION["studentname"]=$record[0]["name"];
-	  $_SESSION["studcollegeRollNo"]=$record[0]["collegeRollNo"];
+	 $_SESSION["student_stream"]=$record[0]["stream"];
+	 $_SESSION["studcollegeRollNo"]=$record[0]["collegeRollNo"];
 	 $arr["status"]=1;
 	 $arr["msg"]=""; 
 	 /*if($courseType=='CBCS'){
