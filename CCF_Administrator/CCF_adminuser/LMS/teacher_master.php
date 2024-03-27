@@ -1,8 +1,16 @@
 <?php 
 include("config.php");
 include("lmsfunction.php");
+$is_hod = isset($_SESSION['is_hod'])?$_SESSION['is_hod']:"";
+$department_id = isset($_SESSION['department_id'])?$_SESSION['department_id']:"";
+$teacherSql = "";
+$teacherSql .= "select teacher.teacher_id,teacher.teacher_name,teacher.email,teacher.mobile,teacher.designation,teacher.is_hod,teacher.is_active,course.course_name,dept.department_name FROM LMS_teacher_master as teacher LEFT JOIN LMS_course_master as course on course.course_id = teacher.course_id LEFT JOIN LMS_department_master as dept ON teacher.department_id = dept.department_id";
 
-$teacherQry = $dbConn->prepare("select teacher.teacher_id,teacher.teacher_name,teacher.email,teacher.mobile,teacher.designation,teacher.is_hod,teacher.is_active,course.course_name,dept.department_name FROM LMS_teacher_master as teacher LEFT JOIN LMS_course_master as course on course.course_id = teacher.course_id LEFT JOIN LMS_department_master as dept ON teacher.department_id = dept.department_id  order by course.course_name desc, dept.department_name ASC, teacher.teacher_name ASC");
+if($is_hod == 1){
+    $teacherSql .= " where teacher.department_id = $department_id";
+}
+$teacherSql .= " order by course.course_name desc, dept.department_name ASC, teacher.teacher_name ASC";
+$teacherQry = $dbConn->prepare($teacherSql);
 $teacherQry->execute();
 $teacherRecord = $teacherQry->fetchAll(PDO::FETCH_ASSOC);
 $courseRecord = getCourseAllData();
@@ -16,7 +24,7 @@ $courseRecord = getCourseAllData();
 <title><?php echo COLLEGE_CODE; ?> | LMS | Teacher Master</title>
 <?php include("../../head_includes.php");?>
 </head>
-<body >
+<body>
     <?php include("headermenu_lms.php");?>
     
     <div id="content">
@@ -60,7 +68,7 @@ $courseRecord = getCourseAllData();
                         <tr>
                             <td class="align-middle"><?php echo $i ?></td>
                             <td class="align-middle text-left text-nowrap">
-                                <a class="d-flex align-items-center avatar_link" href="javascript:void(0)">
+                                <a class="d-flex align-items-center avatar_link" href="user_profile.php">
                                     <div class="flex-shrink-0">
                                         <!--<div class="avatar">
                                         	<img class="img-fluid rounded-circle" src="" alt="">

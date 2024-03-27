@@ -2,6 +2,7 @@
  include("../../../connection_CCF.php");
  //include("../function.php");
  include("../../../configuration_CCF.php");
+ session_start();
 
 $cnt = 0;
   
@@ -29,7 +30,14 @@ $content_id = $_POST["content_id"];
 	$streamQry->execute();
 	$streamRecord = $streamQry->fetchAll(PDO::FETCH_ASSOC);
 
-	$departmentQry = $dbConn->prepare("select * FROM LMS_department_master where course_id = $course_id");
+	$is_hod = isset($_SESSION['is_hod'])?$_SESSION['is_hod']:"";
+	$session_department_id = isset($_SESSION['department_id'])?$_SESSION['department_id']:"";
+	$departmentSql = "";	
+	$departmentSql .= "select * FROM LMS_department_master where course_id = $course_id";
+	if($is_hod == 1  || (($_SESSION['usertype'] == 'teacher' && $_SESSION['is_hod'] == 0))){ 
+		$departmentSql .= " and department_id = $department_id";
+	}
+	$departmentQry = $dbConn->prepare($departmentSql);
 	$departmentQry->execute();
 	$departmentRecord = $departmentQry->fetchAll(PDO::FETCH_ASSOC);
 

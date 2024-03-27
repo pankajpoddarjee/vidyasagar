@@ -1,11 +1,22 @@
-//GET DROPDOWN VALUE FOR DEPARTMENT
+$(document).ready(function() {
+	new DataTable('#material-table', {
+		
+		layout: {
+			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		},
+		
+	});
+} );
 
 // OPEN MODAL FOR INSERT COURSE           
 $("#open-add-material-modal").on("click", function () {
     $('#material-form').trigger("reset");
+	$("#material-title").html("<i class='fa-solid fa-file-arrow-up text-danger'></i> Upload Material");
     $('#add-material-modal').modal('show');
     $("#edit-content").css('display','none');
     $("#material-table").css('display','block');
+    $('#is_edit_mode').val("");
+    
 
 });
 
@@ -61,7 +72,7 @@ $("#course_id").change(function () {
             $('#stream_id').html("");
             var html = '';
             if (data.status == 1) {
-                html += '<option value=""> Select Stream</option>';
+                html += '<option value="">Select Stream</option>';
                 for (let i = 0; i < data.streamRecord.length; i++) {
                     html += '<option value="' + data.streamRecord[i].stream_id + '">' + data.streamRecord[i].stream_name + '</option>';
                 }
@@ -86,7 +97,7 @@ $(document).ready(function(){
     var i = 1;
 
     $("#addRow").click(function(){ 
-        $("#myTable").append('<tr id="row'+i+'"><td id="td-material_type'+i+'"><select mid="'+i+'" name="material_type[]" id="material_type'+i+'" class="form-control upload-type" onchange="changeInput(this,'+i+')"><option value="">Select</option><option value="doc">Document</option><option value="video">Video</option></select></td><td></td><td></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+        $("#myTable").append('<tr id="row'+i+'"><td id="td-material_type'+i+'"><select mid="'+i+'" name="material_type[]" id="material_type'+i+'" class="form-control upload-type" onchange="changeInput(this,'+i+')"><option value="">Select</option><option value="doc">Document</option><option value="video">Video</option></select></td><td></td><td></td><td class="align-middle text-center"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm text-center btn_remove"><i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Delete Row"></i></button></td></tr>');
         i++;
       });
 
@@ -103,23 +114,23 @@ function changeInput(type,id){
     var html = '';
     if(type.value=='doc'){
         
-        html +='<td class="align-middle" id="td-material_type'+id+'"><select  mid="'+id+'" name="material_type[]"  id="material_type'+id+'" class="form-control upload-type" onchange="changeInput(this,'+id+')"><option value="">Select</option><option value="doc" selected>Document</option><option value="video">Video</option></select></td><td class="align-middle" id="td-content_title'+id+'"><input type="text" name="content_title[]" tid="'+id+'" id="content_title'+id+'" placeholder="Enter Title"  class="form-control"/></td><td class="align-middle" id="td-content'+id+'"><input type="file" name="content[]"  cid="'+id+'" multiple id="content'+id+'"  class="form-control-file"/></td>';
+        html +='<td class="align-middle" id="td-material_type'+id+'"><select  mid="'+id+'" name="material_type[]"  id="material_type'+id+'" class="form-control upload-type" onchange="changeInput(this,'+id+')"><option value="">Select</option><option value="doc" selected>Document</option><option value="video">Video</option></select></td><td class="align-middle" id="td-content_title'+id+'"><input type="text" name="content_title[]" tid="'+id+'" id="content_title'+id+'" placeholder="Enter Title" class="form-control" autocomplete="off"/></td><td class="align-middle" id="td-content'+id+'"><input type="file" name="content[]"  cid="'+id+'" multiple id="content'+id+'" class="form-control-file"/></td>';
         if(id != 0){
-            html +='<td class="align-middle"><button type="button" name="remove" id="'+id+'" class="btn btn-danger btn_remove">X</button></td>';
+            html +='<td class="align-middle text-center"><button type="button" name="remove" id="'+id+'" class="btn btn-danger btn-sm text-center btn_remove"><i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Delete Row"></i></button></td>';
         }
         html +='</tr>';
         
     }else if(type.value=='video'){
         
-        html +='<td class="align-middle" id="td-material_type'+id+'"><select  mid="'+id+'" name="material_type[]"  id="material_type'+id+'" class="form-control upload-type" onchange="changeInput(this,'+id+')"><option value="">Select</option><option value="doc" >Document</option><option value="video" selected>Video</option></select></td><td class="align-middle" id="td-content_title'+id+'"><input type="text" name="content_title[]" tid="'+id+'" id="content_title'+id+'" placeholder="Enter Title" class="form-control"/></td><td class="align-middle" id="td-content'+id+'"><input type="text" name="content[]" cid="'+id+'"  id="content'+id+'" placeholder="Enter Video URL" class="form-control"/></td>';
+        html +='<td class="align-middle" id="td-material_type'+id+'"><select  mid="'+id+'" name="material_type[]"  id="material_type'+id+'" class="form-control upload-type" onchange="changeInput(this,'+id+')"><option value="">Select</option><option value="doc" >Document</option><option value="video" selected>Video</option></select></td><td class="align-middle" id="td-content_title'+id+'"><input type="text" name="content_title[]" tid="'+id+'" id="content_title'+id+'" placeholder="Enter Title" class="form-control" autocomplete="off"/></td><td class="align-middle" id="td-content'+id+'"><input type="text" name="content[]" cid="'+id+'"  id="content'+id+'" placeholder="Enter Video Link" class="form-control" autocomplete="off"/></td>';
         if(id !=0 ){
-            html +='<td class="align-middle"><button type="button" name="remove" id="'+id+'" class="btn btn-danger btn_remove">X</button></td>';
+            html +='<td class="align-middle text-center"><button type="button" name="remove" id="'+id+'" class="btn btn-danger text-center btn_remove"><i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Delete Row"></i></button></td>';
         }
         html +='</tr>';
     }else{
         html +='<td class="align-middle" id="td-material_type'+id+'"><select  mid="'+id+'" name="material_type[]"  id="material_type'+id+'" class="form-control upload-type" onchange="changeInput(this,'+id+')"><option value="" selected>Select</option><option value="doc" >Document</option><option value="video">Video</option></select></td>';
         if(id != 0){
-        html +='<td></td><td></td><td><button type="button" name="remove" id="'+id+'" class="btn btn-danger btn_remove">X</button></td>';
+        html +='<td></td><td></td><td class="align-middle text-center"><button type="button" name="remove" id="'+id+'" class="btn btn-danger text-center btn_remove"><i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Delete Row"></i></button></td>';
         }
         html +='</tr>';
     }
@@ -133,6 +144,7 @@ function changeInput(type,id){
 $('body').on('click', '.open-edit-material-modal', function () {
     $('#dvLoading').show();
     //$('#course_id').trigger('change');
+    $("#is_edit_mode").val("edit");
     var content_id = $(this).attr("cid");
     $.ajax({
         type: "POST",
@@ -156,7 +168,7 @@ $('body').on('click', '.open-edit-material-modal', function () {
                 }
                 $('#stream_id').html(stream_html);
 
-                $("#material-title").html("<i class='fa-solid fa-user-graduate text-danger'></i> Edit Content");
+                $("#material-title").html("<i class='fa-solid fa-file-arrow-up text-danger'></i> Edit Content");
                 $("#teacher_name").val(obj.data.teacher_name);
                 $("#teacher_id").val(obj.data.teacher_id);
                 $("#stream_id").val(obj.data.stream_id);
@@ -167,6 +179,8 @@ $('body').on('click', '.open-edit-material-modal', function () {
                 $("#semester_id").val(obj.data.semester_id);
                 $("#content_id").val(obj.data.content_id);
                 $("#study_id").val(obj.data.study_id);
+                $("#pre_doc_val").val(obj.data.document_path);
+                
 
                 
                 
@@ -211,7 +225,7 @@ $('body').on('click', '.open-edit-material-modal', function () {
 $(document).ready(function(){
 $('body').on('click', '#save-study-material', function (event) {
     event.preventDefault();
-    //alert(verifyInput());
+   // alert(verifyInput());
     if (!verifyInput()) {
         return false;
     }
@@ -219,10 +233,10 @@ $('body').on('click', '#save-study-material', function (event) {
     
     
     $('#dvLoading').show();
-    var data = $("#material-form").serialize();
+    //var data = $("#material-form").serialize();
     //var formData = new FormData("form")[0];
     var formData = new FormData(document.getElementById("material-form"));
-    formData.append("fileName",$('[name^="material_type"]').files);
+    formData.append("fileName",$('[name^="edit_document_path"]').files);
     $.ajax({
         type: "post",
         async: false,
@@ -238,19 +252,19 @@ $('body').on('click', '#save-study-material', function (event) {
                 console.log(data.studyMaterialRecord);
                 console.log(data.studyMaterialRecord[0].course_name);
                 var html = '';
-                // html += '<table class="table table-bordered " id="teacher-table"><tr><th>SL.</th> <th>Course Name</th> <th>Dept. Name</th> <th>Teacher Name</th> <th>Email</th> <th>Mobile</th> <th>Role</th> <th>Action</th></tr>';
+                // html += '<table class="table table-bordered " id="material-table"><tr><th>SL.</th> <th>Course Name</th> <th>Dept. Name</th> <th>Teacher Name</th> <th>Email</th> <th>Mobile</th> <th>Role</th> <th>Action</th></tr>';
                 for (let i = 0; i < data.studyMaterialRecord.length; i++) {
-                    var status = (data.studyMaterialRecord[i].is_active == 1) ? "Active" : "Inactive";
+                    var status = (data.studyMaterialRecord[i].is_active == 1) ? "<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active" : "<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive";
                     var status_class = (data.studyMaterialRecord[i].is_active == 1) ? "success" : "danger";
-                    html += '<tr><td>' + (i + 1) + '</td><td>' + data.studyMaterialRecord[i].course_name + '</td><td>' + data.studyMaterialRecord[i].stream_name + '</td><td>' + data.studyMaterialRecord[i].department_name + '</td><td>' + data.studyMaterialRecord[i].material_name + '</td><td>' + data.studyMaterialRecord[i].paper_type_name + '</td><td>' + data.studyMaterialRecord[i].semester_id + '</td><td>' + data.studyMaterialRecord[i].title + '</td><td>' + data.studyMaterialRecord[i].content_type + '</td>';
+                    html += '<tr><td class="align-middle">' + (i + 1) + '</td><td class="align-middle">' + data.studyMaterialRecord[i].course_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].stream_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].department_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].material_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].paper_type_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].semester_id + '</td><td class="align-middle">' + data.studyMaterialRecord[i].title + '</td>';
                     if(data.studyMaterialRecord[i].content_type == 'video'){
-                    html += '<td><a href="' + data.studyMaterialRecord[i].video_link + '" target="_blank">' + data.studyMaterialRecord[i].video_link + '</a></td>';
+                    html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].video_link + '" data-toggle="tooltip" data-placement="top" title="Video" target="_blank"><i class="fa-solid fa-video"></i></a></td>';
                     }else{
-                    html += '<td><a href="' + data.studyMaterialRecord[i].document_path + '" target="_blank">' + data.studyMaterialRecord[i].document_path + '</a></td>';
+                    html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].document_path + '" data-toggle="tooltip" data-placement="top" title="Document" target="_blank"><i class="fa-solid fa-file"></i></a></td>';
                     }
-                    html += '<td><button class="open-edit-material-modal" cid="' + data.studyMaterialRecord[i].content_id + '">Edit</button>&nbsp;<button class="open-delete-material-modal btn btn-' + status_class + '" status="' + data.studyMaterialRecord[i].is_active + '" cid="' + data.studyMaterialRecord[i].content_id + '" >' + status + '</button></td></tr>';
+                    html += '<td class="align-middle"><button class="btn btn-info open-edit-material-modal" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Edit Material"><i class="fa-solid fa-pen-to-square"></i></button> <button class="open-delete-material-modal btn btn-' + status_class + '" status="' + data.studyMaterialRecord[i].is_active + '" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
                 }
-                console.log(html);
+                //console.log(html);
                 var content_html ='';
                 content_html ='<tr id="row0"><td id="td-material_type0"><select name="material_type[]" mid="0"  id="material_type0" class="form-control upload-type" onchange="changeInput(this,0)"><option value="">Select</option><option value="doc">Document</option><option value="video">Video</option></select></td></tr>';
                 $('#material-table-body').html(html);
@@ -298,7 +312,7 @@ function verifyInput() {
         toastAlert({
             type: "error",
             title: "",
-            message: "Please enter course name",
+            message: "Please select Course",
             buttonText: ""
         })
         return false;
@@ -308,7 +322,7 @@ function verifyInput() {
         toastAlert({
             type: "error",
             title: "",
-            message: "Please select stream",
+            message: "Please select Stream",
             buttonText: ""
         })
         return false;
@@ -318,7 +332,7 @@ function verifyInput() {
         toastAlert({
             type: "error",
             title: "",
-            message: "Please select department",
+            message: "Please select Department",
             buttonText: ""
         })
         return false;
@@ -328,7 +342,7 @@ function verifyInput() {
         toastAlert({
             type: "error",
             title: "",
-            message: "Please select material type",
+            message: "Please select Material type",
             buttonText: ""
         })
         return false;
@@ -338,7 +352,7 @@ function verifyInput() {
         toastAlert({
             type: "error",
             title: "",
-            message: "Please select paper type",
+            message: "Please select Paper type",
             buttonText: ""
         })
         return false;
@@ -349,112 +363,155 @@ function verifyInput() {
         toastAlert({
             type: "error",
             title: "",
-            message: "Please select semester",
+            message: "Please select Semester",
             buttonText: ""
         })
         return false;
     }
-    if (!$.trim($("#material_type0").val()).length) { // zero-length string AFTER a trim
-        $("#material_type0").focus();
-        toastAlert({
-            type: "error",
-            title: "",
-            message: "Please select content type",
-            buttonText: ""
-        })
-        return false;
-    }
+        //alert($("#is_edit_mode").val());
+        if ($.trim($("#is_edit_mode").val()) == "" ) {
+            if (!$.trim($("#material_type0").val()).length) { // zero-length string AFTER a trim
+                $("#material_type0").focus();
+                toastAlert({
+                    type: "error",
+                    title: "",
+                    message: "Please select Content type",
+                    buttonText: ""
+                })
+                return false;
+            }
+       
         
-        // $('[name^="material_type"]').each(function(){  
-        //     //alert($.trim(this.value));
-        //     var id = $(this).attr("mid");
-        //     if($.trim(this.value) == ""){ alert("blank");
-        //         $("#material_type"+id).focus();
-        //         toastAlert({
-        //             type: "error",
-        //             title: "",
-        //             message: "Please select content type",
-        //             buttonText: ""
-        //         })
-        //         return false;
-        //     }else{
-        //         if($("#content_title"+id).val() == ""){
-        //             toastAlert({
-        //                 type: "error",
-        //                 title: "",
-        //                 message: "Please enter content title",
-        //                 buttonText: ""
-        //             })
-        //             return false;
-        //         }
-        //         var ctype =  $("#content"+id).attr("type");
-        //         if(ctype=="text"){
-        //             var msg = "Please enter video link";
-        //         }else{
-        //             var msg = "Please upload content";
-        //         }
-        //         if($("#content"+id).val() == ""){
-        //             toastAlert({
-        //                 type: "error",
-        //                 title: "",
-        //                 message: msg,
-        //                 buttonText: ""
-        //             })
-        //             return false;
-        //         }
-        //     }
-        // });
-        var is_err = false;
-        $('[name^="material_type"]').each(function(){  
-           // alert($.trim(this.value));
-            var ctype =  $("#content"+id).attr("type");
-            if(ctype=="text"){
-                var msg = "Please enter video link";
-            }else{
-                var msg = "Please upload content";
-            }
-            var id = $(this).attr("mid");
-            if($.trim(this.value) == ""){ //alert("blank");
-                is_err = true;
-                toastAlert({
-                    type: "error",
-                    title: "",
-                    message: "Please select content type",
-                    buttonText: ""
-                })
-                return false;
-            }
-            if($("#content_title"+id).val() == ""){
-                is_err = true;
-                toastAlert({
-                    type: "error",
-                    title: "",
-                    message: "Please enter content title",
-                    buttonText: ""
-                })
-                return false;
-            }
-            if($("#content"+id).val() == ""){
-                is_err = true;
-                toastAlert({
-                    type: "error",
-                    title: "",
-                    message: msg,
-                    buttonText: ""
-                })
-                return false;
-            }
+            var is_err = false;
+            $('[name^="material_type"]').each(function(){  
+            // alert($.trim(this.value));
+                var ctype =  $("#content"+id).attr("type");
+                if(ctype=="text"){
+                    var msg = "Please enter video link";
+                }else{
+                    var msg = "Please upload content";
+                }
+                var id = $(this).attr("mid");
+                if($.trim(this.value) == ""){ //alert("blank");
+                    is_err = true;
+                    toastAlert({
+                        type: "error",
+                        title: "",
+                        message: "Please select Content type",
+                        buttonText: ""
+                    })
+                    return false;
+                }
+                if($("#content_title"+id).val() == ""){
+                    is_err = true;
+                    toastAlert({
+                        type: "error",
+                        title: "",
+                        message: "Please enter Content Title",
+                        buttonText: ""
+                    })
+                    return false;
+                }
+                if($("#content"+id).val() == ""){
+                    is_err = true;
+                    toastAlert({
+                        type: "error",
+                        title: "",
+                        message: msg,
+                        buttonText: ""
+                    })
+                    return false;
+                }
                 
-                
-                
-            
-        });
+            });
 
-        if(is_err){
-            return false;
+            if(is_err){
+                return false;
+            }
         }
    
    
 	    return true;
+}
+
+
+$('body').on('click', '.open-delete-material-modal', function () {
+    var content_id = $(this).attr("cid");
+    var status = $(this).attr("status");
+    var custom_status = status;
+    if (status == '1') {
+        custom_status = "Inactive";
+    } else {
+        custom_status = "Active";
     }
+    $('#delete_content_id').val(content_id);
+    $('#active-inactive').text(custom_status);
+    $('#new_satus').val(custom_status);
+    //$('#delete-teacher-modal').modal('show');
+    toastAlert({
+        type: "question",
+        title: "Confirm Title",
+        message: "Are you sure want to <strong>" + custom_status + "</strong> this study material ?",
+        confirmText: "Yes",
+        cancelText: "No"
+    }).then((e) => {
+        if (e == ("Thanks")) {
+        } else {
+            var data = $("#delete-study-material-form").serialize();
+            $('#dvLoading').show();
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "deleteStudyMaterial.php",
+                data: data,
+                dataType: "json",
+
+                success: function (data) {
+
+                    if (data.status == 1) {
+                        var html = '';
+                        //html += '<table class="table table-bordered " id="material-table"><tr><th>SL.</th> <th>Course Name</th> <th>Dept. Name</th> <th>Teacher Name</th> <th>Email</th> <th>Mobile</th> <th>Role</th> <th>Action</th></tr>';
+						
+                        for (let i = 0; i < data.studyMaterialRecord.length; i++) {
+                            var status = (data.studyMaterialRecord[i].is_content_active == 1) ? "Active" : "Inactive";
+                            var status_class = (data.studyMaterialRecord[i].is_content_active == 1) ? "success" : "danger";
+                            html += '<tr><td class="align-middle">' + (i + 1) + '</td><td class="align-middle">' + data.studyMaterialRecord[i].course_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].stream_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].department_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].material_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].paper_type_name + '</td><td class="align-middle">' + data.studyMaterialRecord[i].semester_id + '</td><td class="align-middle">' + data.studyMaterialRecord[i].title + '</td>';
+                            if(data.studyMaterialRecord[i].content_type == 'video'){
+                            html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].video_link + '" data-toggle="tooltip" data-placement="top" title="Video" target="_blank"><i class="fa-solid fa-video"></i></a></td>';
+                            }else{
+                            html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].document_path + '" data-toggle="tooltip" data-placement="top" title="Document" target="_blank"><i class="fa-solid fa-file"></i></a></td>';
+                            }
+                            html += '<td class="align-middle"><button class="btn btn-info open-edit-material-modal" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Edit Material"><i class="fa-solid fa-pen-to-square"></i></button> <button class="open-delete-material-modal btn btn-' + status_class + '" status="' + data.studyMaterialRecord[i].is_active + '" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
+                        }
+
+                        //html += '</table>';
+                        $('#material-table-body').html(html);
+                        $('#delete-material-modal').modal('hide');
+                        $("#material-title").text("Add Teacher");
+                        $('#material-form')[0].reset();
+                        toastAlert({
+                            type: "success",
+                            title: "",
+                            message: data.msg,
+                            buttonText: ""
+                        })
+                    }
+                    else {
+                        toastAlert({
+                        type: "error",
+                        title: "",
+                        message: data.msg,
+                        buttonText: ""
+                        })
+                        return false;
+                    }
+
+                },
+                complete: function () {
+                    $('#dvLoading').hide();
+                }
+            });
+        }
+    })
+});
 });

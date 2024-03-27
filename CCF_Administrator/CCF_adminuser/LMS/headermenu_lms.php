@@ -196,6 +196,7 @@ a.article:hover {
          <li>
             <a href="#mastersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-gear faa-spin animated mr-2"></i>Masters</a>
             <ul class="collapse list-unstyled" id="mastersSubmenu">
+                <?php if($_SESSION['usertype'] != 'teacher') { ?>
                 <li>
                     <a href="course_master.php"><i class="fa-solid fa-gears mr-2"></i>Course Master</a>
                 </li>
@@ -205,9 +206,12 @@ a.article:hover {
                 <li>
                     <a href="department_master.php"><i class="fa-solid fa-gears mr-2"></i>Department Master</a>
                 </li>
+                <?php } ?>
+                <?php if(($_SESSION['usertype'] != 'teacher' && $_SESSION['is_hod'] == 0) || ( $_SESSION['usertype'] == 'teacher' && $_SESSION['is_hod'] == 1)) { ?>
                 <li>
                     <a href="teacher_master.php"><i class="fa-solid fa-gears mr-2"></i>Teacher Master</a>
                 </li>
+                <?php } ?>
                 <li>
                     <a href="upload_material.php"><i class="fa-solid fa-gears mr-2"></i>Upload Material</a>
                 </li>

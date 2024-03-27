@@ -104,7 +104,7 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                         <div class="row">
                             <div class="col-md-12 mb-2">
                                 <div class="form-group">
-                                    <label for="course_name">Select Course</label>
+                                    <label for="course_id">Select Course</label>
                                     <select class="form-control" name="course_id" id="course_id">
                                         <option value="">Select</option>
                                         <?php if($courseRecord){
@@ -117,14 +117,14 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                             
                             <div class="col-md-6 mb-2">
                                 <div class="form-group">
-                                    <label for="course_name">Enter Stream Name</label>
+                                    <label for="stream_name">Enter Stream Name</label>
                                     <input type="text" class="form-control" id="stream_name" name="stream_name" maxlength="20" autocomplete="off">
                                 </div>
                             </div>
                             
                             <div class="col-md-6 mb-2">
                                 <div class="form-group">
-                                    <label for="course_name">Enter Stream Code</label>
+                                    <label for="stream_code">Enter Stream Code</label>
                                     <input type="text" class="form-control" id="stream_code" name="stream_code" maxlength="20" autocomplete="off">
                                 </div>
                             </div>                                

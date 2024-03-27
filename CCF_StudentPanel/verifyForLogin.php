@@ -8,15 +8,15 @@ $cnt = 0;
 $arr = array();
 $record = array();
 $courseType =$_POST["chocourseType"];
- $dept =$_POST["choDept"];
+$dept =$_POST["choDept"];
 
 $rollno = trim($_POST["txtrollno"]);
- $DOBdd	 = $_POST["choDOBdd"];
+$DOBdd	 = $_POST["choDOBdd"];
 $DOBmm  = $_POST["choDOBmm"];
 $DOByy  = $_POST["choDOByy"];
 
 
-    $qry	=	"select applicationNo,name,ISNULL(passOutStatus,'') as passOutStatus,collegeRollNo from studentmaster st
+$qry	=	"select applicationNo,name,ISNULL(passOutStatus,'') as passOutStatus,collegeRollNo from studentmaster st
 JOIN College_CourseMaster ccm ON ccm.subjectcode=st.appsubjectcode where   ccm.subjectcode='".$dept."' and st.collegeRollNo='".$rollno."' and dd='".$DOBdd."' and mm='".$DOBmm."' and yy='".$DOByy."' and ISNULL(studentActiveStatus,0)=1;";
  
 /*if($courseType=='CBCS'){

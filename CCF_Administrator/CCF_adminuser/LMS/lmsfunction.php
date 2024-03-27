@@ -68,7 +68,20 @@ function getTeacherAllData()
 {
     //include("../../../connection_CCF.php");
     global $dbConn;
-	$teacherQry = $dbConn->prepare("select teacher.teacher_id,teacher.teacher_name,teacher.email,teacher.mobile,teacher.designation,teacher.is_hod,teacher.is_active,course.course_name,dept.department_name FROM LMS_teacher_master as teacher LEFT JOIN LMS_course_master as course on course.course_id = teacher.course_id LEFT JOIN LMS_department_master as dept ON teacher.department_id = dept.department_id  order by course.course_name desc, dept.department_name ASC");
+    $is_hod = isset($_SESSION['is_hod'])?$_SESSION['is_hod']:"";
+    $department_id = isset($_SESSION['department_id'])?$_SESSION['department_id']:"";
+    $teacherSql = "";
+
+    $teacherSql .= "select teacher.teacher_id,teacher.teacher_name,teacher.email,teacher.mobile,teacher.designation,teacher.is_hod,teacher.is_active,course.course_name,dept.department_name FROM LMS_teacher_master as teacher LEFT JOIN LMS_course_master as course on course.course_id = teacher.course_id LEFT JOIN LMS_department_master as dept ON teacher.department_id = dept.department_id";
+
+    if($is_hod == 1){
+        $teacherSql .= " where teacher.department_id = $department_id";
+    }
+
+    $teacherSql .= " order by course.course_name desc, dept.department_name ASC";
+
+
+	$teacherQry = $dbConn->prepare($teacherSql);
     $teacherQry->execute();
     $teacherRecord = $teacherQry->fetchAll(PDO::FETCH_ASSOC);
 

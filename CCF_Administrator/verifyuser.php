@@ -48,8 +48,10 @@ $strsql="select teacher_id,teacher_name,department_id,course_id,mobile,email,use
 		$_SESSION['loggedin'] = true;
 		$_SESSION['userid'] =$record[0]["teacher_id"];
 		$_SESSION['user'] = $record[0]["teacher_name"];
-		//$_SESSION['usertypeid'] = $record[0]["typeid"];
-		$_SESSION['usertype'] = "TEACHER";
+		$_SESSION['is_hod'] = $record[0]["is_hod"];
+		$_SESSION['designation'] = $record[0]["designation"];
+		$_SESSION['usertype'] = "teacher";
+		$_SESSION['department_id'] = $record[0]["department_id"];
 	 
 	}
 	else{
@@ -85,6 +87,9 @@ $strsql="select teacher_id,teacher_name,department_id,course_id,mobile,email,use
 		$_SESSION['user'] = $record[0]["name"];
 		$_SESSION['usertypeid'] = $record[0]["typeid"];
 		$_SESSION['usertype'] = $record[0]["usertype"];
+		$_SESSION['is_hod'] = 0;
+		//$_SESSION['department_id'] = 0;
+		
 	 
 	}
 	else{

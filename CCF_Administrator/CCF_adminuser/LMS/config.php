@@ -15,7 +15,7 @@ $adminuserid= $_SESSION["userid"];
 $usertype = $_SESSION['usertype'];
 
 
-/*$qry = "SELECT permission  FROM role where ".$usertype."=1 ;";
+$qry = "SELECT permission  FROM role where ".$usertype."=1 ;";
 
 $record = array();
 $phase = array();
@@ -63,7 +63,7 @@ $absolute_url =strtolower(full_url($_SERVER ));
 if(!in_array(trim($absolute_url),$permissionurlarr)){
 	 
  header("location: permissionDenied.php ");
-}*/
+}
  
 
 ?>
