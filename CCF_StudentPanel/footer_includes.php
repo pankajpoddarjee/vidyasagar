@@ -6,6 +6,8 @@
 
 <link href="<?php echo GOOGLE_FONT_1;?>" rel="stylesheet">
 <link href="<?php echo FONT_AWESOME_CSS;?>" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+<script src="https://kit.fontawesome.com/3b1cd5c4d8.js" crossorigin="anonymous"></script>
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/font-awesome-animation.min.css" rel="stylesheet">
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/table_style.css" rel="stylesheet">
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/multi_select.css" rel="stylesheet">
