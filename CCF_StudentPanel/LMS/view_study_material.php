@@ -9,19 +9,49 @@ include("../../configuration_CCF.php");
 $collegerollno = $_SESSION["studcollegeRollNo"];
 $student_stream = isset($_SESSION["student_stream"])?$_SESSION["student_stream"]:'';
 $student_subject = isset($_SESSION["student_subject"])?$_SESSION["student_subject"]:'';
+$presentsemester = isset($_SESSION["presentsemester"])?$_SESSION["presentsemester"]:'';
 
 include("../Query_dashboard.php");
 
 $qryresult = NULL;
-
+$semester1 = [];$semester2 = [];$semester3 = [];$semester4 = [];$semester5 = [];$semester6 = [];
+$semester7 = [];$semester8 = [];
 
 
 $contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
 left join LMS_department_master as dm on dm.department_id = sm.department_id
 left join LMS_material_master as mm on mm.material_id = sm.material_id
-left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id where stream.stream_code= '".$student_stream."' and  dm.department_name= '".$student_subject."' order by sc.content_id desc");
+left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id where sc.is_active=1 and stream.stream_code= '".$student_stream."' and  dm.department_name= '".$student_subject."' order by sc.content_id desc");
 $contentQry->execute();
 $contentRecord = $contentQry->fetchAll(PDO::FETCH_ASSOC);
+if($contentRecord){
+    foreach ($contentRecord as $value) {
+        if($value['semester_id']==1){
+            $semester1[] = $value;
+        }
+        if($value['semester_id']==2){
+            $semester2[] = $value;
+        }
+        if($value['semester_id']==3){
+            $semester3[] = $value;
+        }
+        if($value['semester_id']==4){
+            $semester4[] = $value;
+        }
+        if($value['semester_id']==5){
+            $semester5[] = $value;
+        }
+        if($value['semester_id']==6){
+            $semester6[] = $value;
+        }
+        if($value['semester_id']==7){
+            $semester7[] = $value;
+        }
+        if($value['semester_id']==8){
+            $semester8[] = $value;
+        }
+    }
+}
 $dbConn = NULL;
 
 ?>
@@ -52,61 +82,357 @@ $dbConn = NULL;
             
             <div class="row">
             	<div class="col-md-12 mb-3">
-                	<table class="table table-bordered table-striped shadow">
-                        <thead>
-                            <tr>
-                                <th colspan="10" scope="col" class="bg-secondary text-left text-light font-weight-normal"><i class="fa fa-user"></i> Study Material</th>
-                            </tr>
-                        </thead>
-                            <tr style="background:#f8fafd; color:#758289">
-                                <th class="align-middle">Srl.</th>
-                                <th class="align-middle">Course</th>
-                                <th class="align-middle">Stream</th>
-                                <th class="align-middle">Department</th>
-                                <th class="align-middle text-nowrap">Material Type</th>
-                                <th class="align-middle text-nowrap">Paper Type</th>
-                                <th class="align-middle">Semester</th>
-                                <th class="align-middle">Title</th>
-                                <th class="align-middle">Link</th>
-                            </tr>
-                        <tbody id="material-table-body">
-                        <?php if($contentRecord){
-                            $i=1;
-                            foreach ($contentRecord as $value) {
-                        ?>
+                
+                    <div class="accordion" id="SemesterAccordion">
+                        <div class="card mb-1">
+                            <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem1" aria-expanded="true" aria-controls="Sem1">
+                            	<h4 class="m-0" style="font-family:Oswald">
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester I
+                                </h4>
+                            </button>
+                            <div id="Sem1" class="collapse <?php echo ($presentsemester=='I')?' show':''; ?>" aria-labelledby="Sem1Heading" data-parent="#SemesterAccordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    	<table class="table table-bordered text-nowrap">
+                                            <thead class="text-center bg-light">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Paper</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                <?php if(count($semester1)>0){
+                                                    $i=1;
+                                                    foreach ($semester1 as $sem1) {
+                                                ?>                                            
+                                                <tr>
+                                                    <td class="align-middle text-center"><?php echo $i ?></td>
+                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-left"><?php echo $sem1['title']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem1['material_name']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem1['paper_type_name']; ?></td>
+                                                    <?php if($sem1['content_type'] == 'video') { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo $sem1['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
+                                                            <i class="fa-solid fa-video"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } else { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem1['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php $i++; } } else{ ?>
+                                                <tr>
+                                                    <td class="align-middle text-center" colspan="6">No Record Found</td>
+                                                </tr>
+                                               <?php } ?>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <tr>
-                            <td class="align-middle"><?php echo $i ?></td>
-                            <td class="align-middle"><?php echo $value['course_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['stream_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['department_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['material_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['paper_type_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['semester_id']; ?></td>
-                            <td class="align-middle"><?php echo $value['title']; ?></td>
-                            <?php if($value['content_type'] == 'video') { ?>
-                            <td class="align-middle">
-                                <a class="btn btn-outline-danger" href="<?php echo $value['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
-                                	<i class="fa-solid fa-video"></i>
-                                </a>
-                            </td>   
-                            <?php } else { ?>
-                            <td class="align-middle">
-                                <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$value['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Document" target="_blank">
-                                	<i class="fa-solid fa-file"></i>
-                                </a>
-                            </td>   
-                            <?php } ?>
-                                         
-                            
-                        </tr>
-                        <?php $i++; } } else{ ?>
-                        <tr>
-                            <td class="align-middle" colspan="10">No Record Found</td>
-                        </tr>
-                       <?php } ?>
-                       </tbody>
-                    </table>  
+                        <div class="card mb-1">
+                            <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem2" aria-expanded="false" aria-controls="Sem2">
+                            	<h4 class="m-0" style="font-family:Oswald">
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester II
+                                </h4>
+                            </button>
+                            <div id="Sem2" class="collapse <?php echo ($presentsemester=='II')?' show':''; ?>" aria-labelledby="Sem2Heading" data-parent="#SemesterAccordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    	<table class="table table-bordered text-nowrap">
+                                            <thead class="text-center bg-light">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Paper</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody >
+                                                <?php if(count($semester2)>0){
+                                                    $i=1;
+                                                    foreach ($semester2 as $sem2) {
+                                                ?>                                            
+                                                <tr>
+                                                    <td class="align-middle text-center"><?php echo $i ?></td>
+                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-left"><?php echo $sem2['title']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem2['material_name']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem2['paper_type_name']; ?></td>
+                                                    <?php if($sem2['content_type'] == 'video') { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo $sem2['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
+                                                            <i class="fa-solid fa-video"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } else { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem2['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php $i++; } } else{ ?>
+                                                <tr>
+                                                    <td class="align-middle text-center" colspan="10">No Record Found</td>
+                                                </tr>
+                                               <?php } ?>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-1">
+                            <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem3" aria-expanded="false" aria-controls="Sem3">
+                            	<h4 class="m-0" style="font-family:Oswald">
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester III <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                </h4>
+                            </button>
+                            <div id="Sem3" class="collapse <?php echo ($presentsemester=='III')?' show':''; ?>" aria-labelledby="Sem3Heading" data-parent="#SemesterAccordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    	<table class="table table-bordered text-nowrap">
+                                            <thead class="text-center bg-light">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Paper</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody >
+                                                <?php if(count($semester3)>0){
+                                                    $i=1;
+                                                    foreach ($semester3 as $sem3) {
+                                                ?>                                            
+                                                <tr>
+                                                    <td class="align-middle text-center"><?php echo $i ?></td>
+                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-left"><?php echo $sem3['title']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem3['material_name']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem3['paper_type_name']; ?></td>
+                                                    <?php if($sem3['content_type'] == 'video') { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo $sem3['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
+                                                            <i class="fa-solid fa-video"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } else { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem3['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php $i++; } } else{ ?>
+                                                <tr>
+                                                    <td class="align-middle text-center" colspan="10">No Record Found</td>
+                                                </tr>
+                                               <?php } ?>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-1">
+                            <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem4" aria-expanded="false" aria-controls="Sem4">
+                            	<h4 class="m-0" style="font-family:Oswald">
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester IV
+                                </h4>
+                            </button>
+                            <div id="Sem4" class="collapse <?php echo ($presentsemester=='IV')?' show':''; ?>" aria-labelledby="Sem4Heading" data-parent="#SemesterAccordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    	<table class="table table-bordered text-nowrap">
+                                            <thead class="text-center bg-light">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Paper</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody >
+                                                <?php if(count($semester4)>0){
+                                                    $i=1;
+                                                    foreach ($semester4 as $sem4) {
+                                                ?>                                            
+                                                <tr>
+                                                    <td class="align-middle text-center"><?php echo $i ?></td>
+                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-left"><?php echo $sem4['title']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem4['material_name']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem4['paper_type_name']; ?></td>
+                                                    <?php if($sem4['content_type'] == 'video') { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo $sem4['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
+                                                            <i class="fa-solid fa-video"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } else { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem4['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php $i++; } } else{ ?>
+                                                <tr>
+                                                    <td class="align-middle text-center" colspan="10">No Record Found</td>
+                                                </tr>
+                                               <?php } ?>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-1">
+                            <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem5" aria-expanded="false" aria-controls="Sem5">
+                            	<h4 class="m-0" style="font-family:Oswald">
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester V
+                                </h4>
+                            </button>
+                            <div id="Sem5" class="collapse <?php echo ($presentsemester=='V')?' show':''; ?>" aria-labelledby="Sem5Heading" data-parent="#SemesterAccordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    	<table class="table table-bordered text-nowrap">
+                                            <thead class="text-center bg-light">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Paper</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody >
+                                                <?php if(count($semester5)>0){
+                                                    $i=1;
+                                                    foreach ($semester5 as $sem5) {
+                                                ?>                                            
+                                                <tr>
+                                                    <td class="align-middle text-center"><?php echo $i ?></td>
+                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-left"><?php echo $sem5['title']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem5['material_name']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem5['paper_type_name']; ?></td>
+                                                    <?php if($sem5['content_type'] == 'video') { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo $sem5['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
+                                                            <i class="fa-solid fa-video"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } else { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem5['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php $i++; } } else{ ?>
+                                                <tr>
+                                                    <td class="align-middle text-center" colspan="10">No Record Found</td>
+                                                </tr>
+                                               <?php } ?>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem6" aria-expanded="false" aria-controls="Sem6">
+                            	<h4 class="m-0" style="font-family:Oswald">
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester VI
+                                </h4>
+                            </button>
+                            <div id="Sem6" class="collapse <?php echo ($presentsemester=='VI')?' show':''; ?>" aria-labelledby="Sem6Heading" data-parent="#SemesterAccordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    	<table class="table table-bordered text-nowrap">
+                                            <thead class="text-center bg-light">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Paper</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody >
+                                                <?php if(count($semester6)>0){
+                                                    $i=1;
+                                                    foreach ($semester6 as $sem6) {
+                                                ?>                                            
+                                                <tr>
+                                                    <td class="align-middle text-center"><?php echo $i ?></td>
+                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-left"><?php echo $sem6['title']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem6['material_name']; ?></td>
+                                                    <td class="align-middle text-center"><?php echo $sem6['paper_type_name']; ?></td>
+                                                    <?php if($sem6['content_type'] == 'video') { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo $sem6['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
+                                                            <i class="fa-solid fa-video"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } else { ?>
+                                                    <td class="align-middle text-center">
+                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem6['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                                        </a>
+                                                    </td>   
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php $i++; } } else{ ?>
+                                                <tr>
+                                                    <td class="align-middle text-center" colspan="10">No Record Found</td>
+                                                </tr>
+                                               <?php } ?>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>            
         </div>
