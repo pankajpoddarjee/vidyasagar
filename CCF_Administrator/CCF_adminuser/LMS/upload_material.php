@@ -84,7 +84,7 @@ $semesterRecord = geAllSemester();
                             </td>   
                             <?php } else { ?>
                             <td class="align-middle">
-                                <a class="btn btn-outline-danger" href="<?php echo $value['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Document" target="_blank">
+                                <a download class="btn btn-outline-danger" href="<?php echo $value['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Document" target="_blank">
                                 	<i class="fa-solid fa-file"></i>
                                 </a>
                             </td>   

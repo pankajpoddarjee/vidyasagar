@@ -263,7 +263,7 @@ $('body').on('click', '#save-study-material', function (event) {
                     if(data.studyMaterialRecord[i].content_type == 'video'){
                     html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].video_link + '" data-toggle="tooltip" data-placement="top" title="Video" target="_blank"><i class="fa-solid fa-video"></i></a></td>';
                     }else{
-                    html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].document_path + '" data-toggle="tooltip" data-placement="top" title="Document" target="_blank"><i class="fa-solid fa-file"></i></a></td>';
+                    html += '<td class="align-middle"><a download class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].document_path + '" data-toggle="tooltip" data-placement="top" title="Document" target="_blank"><i class="fa-solid fa-file"></i></a></td>';
                     }
                     html += '<td class="align-middle"><button class="btn btn-info open-edit-material-modal" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Edit Material"><i class="fa-solid fa-pen-to-square"></i></button> <button class="open-delete-material-modal btn btn-' + status_class + '" status="' + data.studyMaterialRecord[i].is_active + '" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
                 }
@@ -482,7 +482,7 @@ $('body').on('click', '.open-delete-material-modal', function () {
                             if(data.studyMaterialRecord[i].content_type == 'video'){
                             html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].video_link + '" data-toggle="tooltip" data-placement="top" title="Video" target="_blank"><i class="fa-solid fa-video"></i></a></td>';
                             }else{
-                            html += '<td class="align-middle"><a class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].document_path + '" data-toggle="tooltip" data-placement="top" title="Document" target="_blank"><i class="fa-solid fa-file"></i></a></td>';
+                            html += '<td class="align-middle"><a download class="btn btn-outline-danger" href="' + data.studyMaterialRecord[i].document_path + '" data-toggle="tooltip" data-placement="top" title="Document" target="_blank"><i class="fa-solid fa-file"></i></a></td>';
                             }
                             html += '<td class="align-middle"><button class="btn btn-info open-edit-material-modal" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Edit Material"><i class="fa-solid fa-pen-to-square"></i></button> <button class="open-delete-material-modal btn btn-' + status_class + '" status="' + data.studyMaterialRecord[i].is_active + '" cid="' + data.studyMaterialRecord[i].content_id + '" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
                         }
