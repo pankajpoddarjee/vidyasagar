@@ -118,7 +118,7 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-md-6 mb-2">
                                 <div class="form-group">
                                     <label for="stream_name">Enter Stream Name</label>
-                                    <input type="text" class="form-control" id="stream_name" name="stream_name" maxlength="20" autocomplete="off">
+                                    <input type="text" class="form-control" id="stream_name" name="stream_name" maxlength="50" autocomplete="off">
                                 </div>
                             </div>
                             
@@ -395,16 +395,16 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
            
         // } );
 
-        $('#stream_name').on('keypress', function (event) {
-            var regex = new RegExp("^[a-zA-Z ]+$");
-            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-            /* $("#msgcontent").html(event.keyCode");
-            $("#ValidationAlert").modal();  */
-            if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
-            }
-        });
+        // $('#stream_name').on('keypress', function (event) {
+        //     var regex = new RegExp("^[a-zA-Z ]+$");
+        //     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        //     /* $("#msgcontent").html(event.keyCode");
+        //     $("#ValidationAlert").modal();  */
+        //     if (!regex.test(key)) {
+        //     event.preventDefault();
+        //     return false;
+        //     }
+        // });
         $('#stream_code').on('keypress', function (event) {
             var regex = new RegExp("^[a-zA-Z0-9 ]+$");
             var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
