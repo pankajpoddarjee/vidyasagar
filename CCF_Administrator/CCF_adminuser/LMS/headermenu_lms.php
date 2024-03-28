@@ -212,11 +212,11 @@ a.article:hover {
                     <a href="teacher_master.php"><i class="fa-solid fa-gears mr-2"></i>Teacher Master</a>
                 </li>
                 <?php } ?>
-                <li>
-                    <a href="upload_material.php"><i class="fa-solid fa-gears mr-2"></i>Upload Material</a>
-                </li>
             </ul>
-        </li> 
+        </li>
+        <li>
+            <a href="upload_material.php"><i class="fa-solid fa-file-arrow-up mr-2"></i>Upload Material</a>
+        </li>
     </ul>
 </nav>
 

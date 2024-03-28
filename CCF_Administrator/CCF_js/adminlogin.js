@@ -2,7 +2,7 @@ function verifyLogin()
 {
 	if($.trim($('#txtcourseType').val())=="")	
 	{
-		$("#msgcontent").html("Choose Course Type.");
+		$("#msgcontent").html("Select User Type");
 		$("#ValidationAlert").modal();
 		$('#txtcourseType').focus()
 		return false;
@@ -10,14 +10,14 @@ function verifyLogin()
 	
 	if($.trim($('#txtusername').val())=="")	
 	{
-		$("#msgcontent").html("Enter User name.");
+		$("#msgcontent").html("Enter Username");
 			$("#ValidationAlert").modal();
 		$('#txtusername').focus()
 		return false;
 	}
 	if($.trim($('#txtpassword').val())=="")	
 	{
-		$("#msgcontent").html("Enter Password.");
+		$("#msgcontent").html("Enter Password");
 			$("#ValidationAlert").modal();
 		$('#txtpassword').focus()
 		return false;

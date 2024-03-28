@@ -97,7 +97,7 @@ $(document).ready(function(){
     var i = 1;
 
     $("#addRow").click(function(){ 
-        $("#myTable").append('<tr id="row'+i+'"><td id="td-material_type'+i+'"><select mid="'+i+'" name="material_type[]" id="material_type'+i+'" class="form-control upload-type" onchange="changeInput(this,'+i+')"><option value="">Select</option><option value="doc">Document</option><option value="video">Video</option></select></td><td></td><td></td><td class="align-middle text-center"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm text-center btn_remove"><i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Delete Row"></i></button></td></tr>');
+        $("#myTable").append('<tr id="row'+i+'"><td class="align-middle text-nowrap" id="td-material_type'+i+'"><select mid="'+i+'" name="material_type[]" id="material_type'+i+'" class="form-control upload-type" onchange="changeInput(this,'+i+')"><option value="">Select</option><option value="doc">Document</option><option value="video">Video</option></select></td><td class="align-middle text-nowrap"></td><td class="align-middle text-nowrap"></td><td class="align-middle text-center"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm text-center btn_remove"><i class="fa-solid fa-trash-can" data-toggle="tooltip" data-placement="top" title="Delete Row"></i></button></td></tr>');
         i++;
       });
 

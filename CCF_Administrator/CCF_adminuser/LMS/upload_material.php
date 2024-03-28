@@ -23,7 +23,7 @@ $semesterRecord = geAllSemester();
 <title><?php echo COLLEGE_CODE; ?> | <?php echo PROGRAMME_CODE; ?> | Upload Material</title>
 <?php include("../../head_includes.php");?>
 </head>
-<body >
+<body>
     <?php include("headermenu_lms.php");?>
     
     <div id="content">
@@ -226,15 +226,15 @@ $semesterRecord = geAllSemester();
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                            <tr id="row0">
-                                <td class="align-middle text-nowrap" id="td-material_type0">
-                                    <select name="material_type[]" mid="0"  id="material_type0" class="form-control upload-type" onchange="changeInput(this,'0')">
-                                        <option value="">Select</option>
-                                        <option value="doc">Document</option>
-                                        <option value="video">Video</option>
-                                    </select>
-                                </td>
-                            </tr>
+                                <tr id="row0">
+                                    <td class="align-middle text-nowrap" id="td-material_type0">
+                                        <select name="material_type[]" mid="0"  id="material_type0" class="form-control upload-type" onchange="changeInput(this,'0')">
+                                            <option value="">Select</option>
+                                            <option value="doc">Document</option>
+                                            <option value="video">Video</option>
+                                        </select>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         </div>
