@@ -61,16 +61,10 @@ $dbConn = NULL;
 <meta charset="utf-8">
 <meta name="viewport" content="<?php echo VIEWPORT;?>">
 <meta name="description" content="">
-<title>Candidate Dashboard - <?php echo COLLEGE_NAME; ?></title>
+<title>Learning Materials - <?php echo COLLEGE_NAME; ?></title>
 <?php include("../head_includes.php");?>
 </head>
 <body>
-<?php //if($record["coursesAplliedDetail"]!='Y') {?>
-<style type="text/css">	
-.footer{background:#039; padding:0; margin:0; width:100%}
-@media only screen and (min-width: 1050px) {.footer{position:fixed; bottom:0; padding:0}}
-</style>
-<?php //}?>
     <?php include("lms_dashboard_menu.php");?>
     
     <div id="content">
@@ -80,11 +74,28 @@ $dbConn = NULL;
         <div class="pl-3 pr-3 pt-0">        
             <?php include("../emergengy_notice_dashboard.php");?>
             
+            <div class="row mb-2">
+                <div class="col-md-4 mb-3 text-center text-md-left">
+                    <h3 class="m-0" style="font-family:Oswald">
+                    	<i class="fa-solid fa-user-clock"></i> Session: <span class="text-danger"><?php echo $record["appliedsession"];?></span>
+                    </h3>
+                </div>
+                <div class="col-md-4 mb-3 text-center">
+                    <h3 class="m-0" style="font-family:Oswald">
+                    	<i class="fa-solid fa-user-graduate"></i> Semester: <span class="text-danger"><?php echo $record["presentsemester"];?></span>
+                    </h3>
+                </div>
+                <div class="col-md-4 mb-3 text-center text-md-right">
+                    <h3 class="m-0" style="font-family:Oswald">
+                    	<i class="fa-solid fa-clipboard-user"></i> Roll: <span class="text-danger"><?php echo $_SESSION["studcollegeRollNo"];?></span>
+                    </h3>
+                </div>
+            </div>
+            
             <div class="row">
             	<div class="col-md-12 mb-3">
-                
                     <div class="accordion" id="SemesterAccordion">
-                        <div class="card mb-1">
+                        <div class="card mb-1 border-0">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem1" aria-expanded="true" aria-controls="Sem1">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester I
@@ -145,7 +156,7 @@ $dbConn = NULL;
                             </div>
                         </div>
                         
-                        <div class="card mb-1">
+                        <div class="card mb-1 border-0">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem2" aria-expanded="false" aria-controls="Sem2">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester II
@@ -206,7 +217,7 @@ $dbConn = NULL;
                             </div>
                         </div>
                         
-                        <div class="card mb-1">
+                        <div class="card mb-1 border-0">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem3" aria-expanded="false" aria-controls="Sem3">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester III 
@@ -267,7 +278,7 @@ $dbConn = NULL;
                             </div>
                         </div>
                         
-                        <div class="card mb-1">
+                        <div class="card mb-1 border-0">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem4" aria-expanded="false" aria-controls="Sem4">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester IV
@@ -328,7 +339,7 @@ $dbConn = NULL;
                             </div>
                         </div>
                         
-                        <div class="card mb-1">
+                        <div class="card mb-1 border-0">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem5" aria-expanded="false" aria-controls="Sem5">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester V
@@ -389,7 +400,7 @@ $dbConn = NULL;
                             </div>
                         </div>
                         
-                        <div class="card">
+                        <div class="card mb-1 border-0">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem6" aria-expanded="false" aria-controls="Sem6">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester VI
