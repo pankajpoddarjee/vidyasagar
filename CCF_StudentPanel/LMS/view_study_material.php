@@ -88,6 +88,9 @@ $dbConn = NULL;
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem1" aria-expanded="true" aria-controls="Sem1">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester I
+                                    <?php if($presentsemester=='I'){ ?>
+                                    <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                    <?php } ?>
                                 </h4>
                             </button>
                             <div id="Sem1" class="collapse <?php echo ($presentsemester=='I')?' show':''; ?>" aria-labelledby="Sem1Heading" data-parent="#SemesterAccordion">
@@ -124,7 +127,7 @@ $dbConn = NULL;
                                                     </td>   
                                                     <?php } else { ?>
                                                     <td class="align-middle text-center">
-                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem1['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                        <a download class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem1['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                         </a>
                                                     </td>   
@@ -146,6 +149,9 @@ $dbConn = NULL;
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem2" aria-expanded="false" aria-controls="Sem2">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester II
+                                    <?php if($presentsemester=='II'){ ?>
+                                    <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                    <?php } ?>
                                 </h4>
                             </button>
                             <div id="Sem2" class="collapse <?php echo ($presentsemester=='II')?' show':''; ?>" aria-labelledby="Sem2Heading" data-parent="#SemesterAccordion">
@@ -182,7 +188,7 @@ $dbConn = NULL;
                                                     </td>   
                                                     <?php } else { ?>
                                                     <td class="align-middle text-center">
-                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem2['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                        <a download class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem2['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                         </a>
                                                     </td>   
@@ -203,7 +209,10 @@ $dbConn = NULL;
                         <div class="card mb-1">
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem3" aria-expanded="false" aria-controls="Sem3">
                             	<h4 class="m-0" style="font-family:Oswald">
-                                	<i class="fa-solid fa-graduation-cap"></i> Semester III <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                	<i class="fa-solid fa-graduation-cap"></i> Semester III 
+                                    <?php if($presentsemester=='III'){ ?>
+                                    <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                    <?php } ?>
                                 </h4>
                             </button>
                             <div id="Sem3" class="collapse <?php echo ($presentsemester=='III')?' show':''; ?>" aria-labelledby="Sem3Heading" data-parent="#SemesterAccordion">
@@ -240,7 +249,7 @@ $dbConn = NULL;
                                                     </td>   
                                                     <?php } else { ?>
                                                     <td class="align-middle text-center">
-                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem3['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                        <a download class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem3['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                         </a>
                                                     </td>   
@@ -262,6 +271,9 @@ $dbConn = NULL;
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem4" aria-expanded="false" aria-controls="Sem4">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester IV
+                                    <?php if($presentsemester=='IV'){ ?>
+                                    <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                    <?php } ?>
                                 </h4>
                             </button>
                             <div id="Sem4" class="collapse <?php echo ($presentsemester=='IV')?' show':''; ?>" aria-labelledby="Sem4Heading" data-parent="#SemesterAccordion">
@@ -298,7 +310,7 @@ $dbConn = NULL;
                                                     </td>   
                                                     <?php } else { ?>
                                                     <td class="align-middle text-center">
-                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem4['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                        <a download class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem4['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                         </a>
                                                     </td>   
@@ -320,6 +332,9 @@ $dbConn = NULL;
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem5" aria-expanded="false" aria-controls="Sem5">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester V
+                                    <?php if($presentsemester=='V'){ ?>
+                                    <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                    <?php } ?>
                                 </h4>
                             </button>
                             <div id="Sem5" class="collapse <?php echo ($presentsemester=='V')?' show':''; ?>" aria-labelledby="Sem5Heading" data-parent="#SemesterAccordion">
@@ -356,7 +371,7 @@ $dbConn = NULL;
                                                     </td>   
                                                     <?php } else { ?>
                                                     <td class="align-middle text-center">
-                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem5['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                        <a download class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem5['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                         </a>
                                                     </td>   
@@ -378,6 +393,9 @@ $dbConn = NULL;
                             <button type="button" class="btn btn-info pt-3 pb-3 text-left" data-toggle="collapse" data-target="#Sem6" aria-expanded="false" aria-controls="Sem6">
                             	<h4 class="m-0" style="font-family:Oswald">
                                 	<i class="fa-solid fa-graduation-cap"></i> Semester VI
+                                    <?php if($presentsemester=='VI'){ ?>
+                                    <span class=pull-right><i class="fa-solid fa-user-graduate fa-beat-fade" data-toggle="tooltip" data-placement="top" title="Present Semester"></i></span>
+                                    <?php } ?>
                                 </h4>
                             </button>
                             <div id="Sem6" class="collapse <?php echo ($presentsemester=='VI')?' show':''; ?>" aria-labelledby="Sem6Heading" data-parent="#SemesterAccordion">
@@ -414,7 +432,7 @@ $dbConn = NULL;
                                                     </td>   
                                                     <?php } else { ?>
                                                     <td class="align-middle text-center">
-                                                        <a class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem6['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
+                                                        <a download class="btn btn-outline-danger" href="<?php echo BASE_URL_HOME.'/CCF_Administrator/CCF_adminuser/LMS/'.$sem6['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Download Document" target="_blank">
                                                             <i class="fa-solid fa-file-arrow-down"></i>
                                                         </a>
                                                     </td>   
