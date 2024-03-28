@@ -18,7 +18,7 @@ $semester1 = [];$semester2 = [];$semester3 = [];$semester4 = [];$semester5 = [];
 $semester7 = [];$semester8 = [];
 
 
-$contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
+$contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,sc.publish_date,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
 left join LMS_department_master as dm on dm.department_id = sm.department_id
 left join LMS_material_master as mm on mm.material_id = sm.material_id
 left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id where sc.is_active=1 and stream.stream_code= '".$student_stream."' and  dm.department_name= '".$student_subject."' order by sc.content_id desc");
@@ -115,7 +115,7 @@ $dbConn = NULL;
                                                 ?>                                            
                                                 <tr>
                                                     <td class="align-middle text-center"><?php echo $i ?></td>
-                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-center"><?php echo date('d F Y',strtotime($sem1['publish_date'])); ?></td>
                                                     <td class="align-middle text-left"><?php echo $sem1['title']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem1['material_name']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem1['paper_type_name']; ?></td>
@@ -176,7 +176,7 @@ $dbConn = NULL;
                                                 ?>                                            
                                                 <tr>
                                                     <td class="align-middle text-center"><?php echo $i ?></td>
-                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-center"><?php echo date('d F Y',strtotime($sem2['publish_date'])); ?></td>
                                                     <td class="align-middle text-left"><?php echo $sem2['title']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem2['material_name']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem2['paper_type_name']; ?></td>
@@ -237,7 +237,7 @@ $dbConn = NULL;
                                                 ?>                                            
                                                 <tr>
                                                     <td class="align-middle text-center"><?php echo $i ?></td>
-                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-center"><?php echo date('d F Y',strtotime($sem3['publish_date'])); ?></td>
                                                     <td class="align-middle text-left"><?php echo $sem3['title']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem3['material_name']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem3['paper_type_name']; ?></td>
@@ -298,7 +298,7 @@ $dbConn = NULL;
                                                 ?>                                            
                                                 <tr>
                                                     <td class="align-middle text-center"><?php echo $i ?></td>
-                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-center"><?php echo date('d F Y',strtotime($sem4['publish_date'])); ?></td>
                                                     <td class="align-middle text-left"><?php echo $sem4['title']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem4['material_name']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem4['paper_type_name']; ?></td>
@@ -359,7 +359,7 @@ $dbConn = NULL;
                                                 ?>                                            
                                                 <tr>
                                                     <td class="align-middle text-center"><?php echo $i ?></td>
-                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-center"><?php echo date('d F Y',strtotime($sem5['publish_date'])); ?></td>
                                                     <td class="align-middle text-left"><?php echo $sem5['title']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem5['material_name']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem5['paper_type_name']; ?></td>
@@ -420,7 +420,7 @@ $dbConn = NULL;
                                                 ?>                                            
                                                 <tr>
                                                     <td class="align-middle text-center"><?php echo $i ?></td>
-                                                    <td class="align-middle text-center">12 Mar 2024</td>
+                                                    <td class="align-middle text-center"><?php echo date('d F Y',strtotime($sem6['publish_date'])); ?></td>
                                                     <td class="align-middle text-left"><?php echo $sem6['title']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem6['material_name']; ?></td>
                                                     <td class="align-middle text-center"><?php echo $sem6['paper_type_name']; ?></td>

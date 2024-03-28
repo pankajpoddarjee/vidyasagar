@@ -193,7 +193,14 @@ $semesterRecord = geAllSemester();
 										<?php  } } ?>
                                     </select>
                                 </div>
-                            </div>                            
+                            </div> 
+                            
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label for="semester_id">Publish Date</label>
+                                    <input type="date" id="publish_date" name="publish_date" class="form-control">
+                                </div>
+                            </div> 
                         </div>
                         
                         <div class="row" id="edit-content" style="display:none">

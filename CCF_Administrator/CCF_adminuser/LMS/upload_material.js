@@ -11,6 +11,7 @@ $(document).ready(function() {
 // OPEN MODAL FOR INSERT COURSE           
 $("#open-add-material-modal").on("click", function () {
     $('#material-form').trigger("reset");
+    $('#material-form')[0].reset();
 	$("#material-title").html("<i class='fa-solid fa-file-arrow-up text-danger'></i> Upload Material");
     $('#add-material-modal').modal('show');
     $("#edit-content").css('display','none');
@@ -183,6 +184,7 @@ $('body').on('click', '.open-edit-material-modal', function () {
                 $("#content_id").val(obj.data.content_id);
                 $("#study_id").val(obj.data.study_id);
                 $("#pre_doc_val").val(obj.data.document_path);
+                $("#publish_date").val(obj.data.publish_date);
                 
 
                 
@@ -367,6 +369,17 @@ function verifyInput() {
             type: "error",
             title: "",
             message: "Please select Semester",
+            buttonText: ""
+        })
+        return false;
+    }
+
+    if (!$.trim($("#publish_date").val()).length) { // zero-length string AFTER a trim
+        $("#publish_date").focus();
+        toastAlert({
+            type: "error",
+            title: "",
+            message: "Please select publish date",
             buttonText: ""
         })
         return false;
