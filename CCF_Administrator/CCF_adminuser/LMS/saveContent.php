@@ -20,6 +20,7 @@ $department_id = transformInput($_POST["department_id"]);
 $material_id = transformInput($_POST["material_id"]);
 $paper_type_id = transformInput($_POST["paper_type_id"]);
 $semester_id = transformInput($_POST["semester_id"]);
+$publish_date = $_POST["publish_date"];  
 
 $material_type =  isset($_POST["material_type"])?$_POST["material_type"]:"";
 $content_title = isset($_POST["content_title"])?$_POST["content_title"]:"";
@@ -41,7 +42,7 @@ if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
 
     $qryUpdate = $dbConn->prepare('UPDATE LMS_study_material SET course_id = :course_id,stream_id = :stream_id,department_id = :department_id,material_id = :material_id,paper_type_id = :paper_type_id,semester_id = :semester_id WHERE study_id = :study_id');
         
-    $qryUpdate->execute([
+    $qryUpdate->execute([  
         'study_id' => $study_id,
         'course_id' => $course_id,
         'stream_id' => $stream_id,
@@ -52,11 +53,12 @@ if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
     ]);
     if($qryUpdate){
         if(isset($_POST["edit_video_link"]) && $_POST["edit_video_link"]!=''){
-            $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,video_link = :video_link WHERE content_id = :content_id');
+            $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,video_link = :video_link,publish_date = :publish_date WHERE content_id = :content_id');
             $ContentQryUpdate->execute([
                 'content_id' => $content_id,
                 'title' => $edit_content_title,
-                'video_link' => $edit_video_link
+                'video_link' => $edit_video_link,
+                'publish_date' => $publish_date
             ]);
             if($ContentQryUpdate){
                 $success = true;
@@ -66,13 +68,15 @@ if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
             $_FILES['edit_document_path']['name'];
             $tmpFilePath = $_FILES['edit_document_path']['tmp_name'];
             $newFilePath = "uploads/materials/" . time().'-'.$_FILES['edit_document_path']['name'];
+
             if(move_uploaded_file($tmpFilePath, $newFilePath)) {
-                $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,document_path = :document_path WHERE content_id = :content_id');
+                $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,document_path = :document_path,publish_date = :publish_date WHERE content_id = :content_id');
 
                 $ContentQryUpdate->execute([
                     'content_id' => $content_id,
                     'title' => $edit_content_title,
-                    'document_path' => $newFilePath
+                    'document_path' => $newFilePath,
+                    'publish_date' => $publish_date
                 ]);
                 if($ContentQryUpdate){
                     $success = true;
@@ -119,13 +123,14 @@ else
             if($material=="video"){
                 //$content_video = $content[$kay];
                 $count_video = $count_video + 1;
-                $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,video_link)VALUES (:study_id,:title,:content_type,:video_link)');
+                $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,video_link,publish_date)VALUES (:study_id,:title,:content_type,:video_link,:publish_date)');
 
                     $qryInsertContent->execute([
                         'study_id' => $study_material_id,
                         'title' => $content_title[$kay],
                         'content_type' => $material,
-                        'video_link' => $content[$count_video-1]
+                        'video_link' => $content[$count_video-1],
+                        'publish_date' => $publish_date
                     ]);
                     if($qryInsertContent){
                         $success = true;
@@ -138,13 +143,14 @@ else
                 $tmpFilePath = $_FILES['content']['tmp_name'][$count_doc-1];
                 $newFilePath = "uploads/materials/" . time().'-'.$_FILES['content']['name'][$count_doc-1];
                 if(move_uploaded_file($tmpFilePath, $newFilePath)) {
-                    $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,document_path)VALUES (:study_id,:title,:content_type,:document_path)');
+                    $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,document_path,publish_date)VALUES (:study_id,:title,:content_type,:document_path,:publish_date)');
 
                     $qryInsertContent->execute([
                         'study_id' => $study_material_id,
                         'title' => $content_title[$kay],
                         'content_type' => $material,
-                        'document_path' => $newFilePath
+                        'document_path' => $newFilePath,
+                        'publish_date' => $publish_date
                     ]);
                     if($qryInsertContent){
                         $success = true;
