@@ -46,7 +46,7 @@ $semesterRecord = geAllSemester();
             <div class="row">
                 <div class="col-md-12 text-center">                    
                     <div class="table-responsive">
-                    <table class="table table-bordered" id="teacher-table">
+                    <table class="table table-bordered" id="study-material-table">
                         <thead>
                             <tr style="background:#f8fafd; color:#758289">
                                 <th class="align-middle">Srl.</th>
@@ -101,7 +101,7 @@ $semesterRecord = geAllSemester();
                         </tr>
                         <?php $i++; } } else{ ?>
                         <tr>
-                            <td class="align-middle" colspan="11">No Record Found</td>
+                            <td class="align-middle" colspan="10">No Record Found</td>
                         </tr>
                        <?php } ?>
                        </tbody>
@@ -238,7 +238,7 @@ $semesterRecord = geAllSemester();
                             </tbody>
                         </table>
                         </div>
-                        <p class="text-right mt-2">
+                        <p class="text-right mt-2" id="add-row-div">
                             <a class="btn btn-dark btn-sm" href="javascript:void(0)" id="addRow"><i class="fa-solid fa-circle-plus"></i> Add New Row</a>
                         </p>
                     </div>

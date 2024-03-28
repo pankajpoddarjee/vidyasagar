@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	new DataTable('#material-table', {
+	new DataTable('#study-material-table', {
 		
 		layout: {
 			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -16,6 +16,9 @@ $("#open-add-material-modal").on("click", function () {
     $("#edit-content").css('display','none');
     $("#material-table").css('display','block');
     $('#is_edit_mode').val("");
+    $("#add-row-div").css('display','block');
+    $("#content_id").val("");
+    $("#study_id").val("");
     
 
 });
@@ -184,7 +187,7 @@ $('body').on('click', '.open-edit-material-modal', function () {
 
                 
                 
-                //$("#addRow").css('display','none');
+                $("#add-row-div").css('display','none');
                 $("#material-table").css('display','none');
                 $("#edit-content").css('display','block');
                 $("#edit_content_title").val(obj.data.title);
