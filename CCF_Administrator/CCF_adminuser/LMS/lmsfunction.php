@@ -48,19 +48,26 @@ function getStreamAllData()
 
 }	
 
-function getCourseAllData()
+function getCourseAllData($keyword="")
 {
     //include("../../../connection_CCF.php");
     global $dbConn;
-	$courseQry = $dbConn->prepare("select * FROM LMS_course_master order by is_active desc, course_name desc");
+    $courseRecord = [];
+    $qry = "";
+    $qry .= "select * FROM LMS_course_master ";
+    if(isset($keyword) && !empty($keyword)){
+        $qry .= " where course_name LIKE '%".$keyword."%'" ;
+    }
+    $qry .= " order by is_active desc, course_name desc";
+	$courseQry = $dbConn->prepare($qry);
     $courseQry->execute();
     $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
 
-    if($courseRecord){
+    //if($courseRecord){
         return $courseRecord;
-    }else{
-        return false;
-    }
+    //}else{
+      //  return false;
+   // }
 
 }
 
