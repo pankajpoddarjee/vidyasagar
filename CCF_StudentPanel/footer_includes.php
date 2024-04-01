@@ -53,8 +53,8 @@ window.sr = ScrollReveal();
 		rotate: { x: 50, y: 0, z: 0 },
 		mobile: true
 	});	
-	sr.reveal('.steps_follow_animation', {reset: true, mobile: false}, 40);
-	sr.reveal('.steps_follow_animation2', {reset: true, mobile: false}, 30);
+	sr.reveal('.steps_follow_animation', {reset: true, mobile: false}, 200);
+	sr.reveal('.steps_follow_animation2', {reset: true, mobile: false}, 400);
 </script>
 
 <?php /*?><?php 

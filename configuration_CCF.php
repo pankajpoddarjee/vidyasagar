@@ -15,7 +15,7 @@ define("BASE_URL_HOME","http://office-5/VMC_SDMS");
 define("BASE_URL_STUDENT","http://office-5/VMC_SDMS/CCF_StudentPanel"); // CCF
 define("BASE_ROOT_FOLDER","/VMC_SDMS"); 
 define("SOFTWARE_NAMECODE","Student Management System");
-define("GOOGLE_FONT_1","https://fonts.googleapis.com/css?family=Poppins|Roboto|Rubik|Viga|Oswald|AR+One+Sans|Inter:wght@400;600&display=swap");
+define("GOOGLE_FONT_1","https://fonts.googleapis.com/css?family=Poppins|Roboto|Rubik|Viga|Oswald|Montserrat|AR+One+Sans|Inter:wght@400;600&display=swap");
 define("FONT_AWESOME_CSS","https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css");
 define("SESSIONYR","2023-24");
 

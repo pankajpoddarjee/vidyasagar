@@ -8,7 +8,7 @@ a:focus {
 }*/
 .navbar {
     padding: 15px 10px;
-    background: #222;
+    background: #404e67;
     border: none;
     border-radius: 0;
     margin-bottom: 40px;
@@ -209,9 +209,9 @@ a.article:hover {
 			
             </li> 
 		
-            <li>
+            <!--<li>
 			 <a href="view_study_material.php" ><i class="fa fa-inr mr-2"></i>LMS</a>
-            </li> 
+            </li> -->
 			
             
         </ul>

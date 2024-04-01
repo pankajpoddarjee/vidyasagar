@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark p-2 mb-4 d-print-none">
     <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" class="btn btn-secondary">
+        <button type="button" id="sidebarCollapse" class="btn" style="background:#5f7090; color:#fff;">
             <i class="fa fa-bars"></i>
             <span>Show / Hide</span>
         </button>
@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="javascript:void(0)" data-toggle="modal" style="color:#FFEDA6">Academic Session : <?php echo ACADEMIC_SESSION;?></a>
+                    <a class="nav-link" href="javascript:void(0)" data-toggle="modal" style="color:#FFEDA6">Session : <?php echo ACADEMIC_SESSION;?></a>
                 </li>
 				<li class="nav-item active">
                     <a class="nav-link" href="javascript:void(0)" data-toggle="modal" data-target="#helpline"><i class="fa fa-phone faa faa-tada animated mr-2"></i>Helpline</a>

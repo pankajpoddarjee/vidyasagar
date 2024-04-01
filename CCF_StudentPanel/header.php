@@ -32,7 +32,7 @@
                 <h1 class="text-white text-uppercase p-0 m-0" style="font-family:Oswald">
                 	<?php echo COLLEGE_NAME; ?>
                 </h1>
-                <h5 class="text-white p-0 m-0 mt-1" style="font-family:Rubik">
+                <h5 class="text-white p-0 m-0 mt-1" style="font-family:Montserrat">
                     Student Panel
                 </h5>
             </div>
