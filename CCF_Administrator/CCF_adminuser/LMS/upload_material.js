@@ -138,7 +138,7 @@ $(document).ready(function() {
 
                     
                     
-                    $("#add-row-div").css('display','block');
+                    $("#add-row-div").css('display','none');
                     $("#material-table").css('display','block');
                     $("#edit-content").css('display','block');
                     $("#edit_content_title").val(obj.data.title);
@@ -152,7 +152,7 @@ $(document).ready(function() {
                                 var row_select_class = "";
                             }
                             content_html +='<tr id="row'+i+'" class="'+row_select_class+'">';
-                            content_html +='<td class="align-middle" id="td-material_type'+i+'"><select  mid="'+i+'" name="material_type[]"  id="material_type'+i+'" class="form-control upload-type" onchange="changeInput(this,'+i+')"><option value="">Select</option><option selected value="doc" selected>Document</option><option value="video">Video</option></select></td><td class="align-middle" id="td-content_title'+i+'"><input type="text" name="content_title[]" tid="'+i+'" id="content_title'+i+'" placeholder="Enter Title" class="form-control" autocomplete="off" value="'+obj.getAllContentRecord[i].title+'"/></td><td class="align-middle" id="td-content'+i+'"><input type="file" name="content[]"  cid="'+i+'" multiple id="content'+i+'" class="form-control-file"/><input type="hidden" name="content_doc[]" value="'+obj.getAllContentRecord[i].document_path+'"></td><td class="align-middle" id="td-content_publish_date'+i+'"><input type="date" name="content_publish_date[]" tid="'+i+'" id="content_publish_date'+i+'"  class="form-control" value="'+obj.getAllContentRecord[i].publish_date+'"/></td>';
+                            content_html +='<td class="align-middle" id="td-material_type'+i+'"><select  mid="'+i+'" name="material_type[]"  id="material_type'+i+'" class="form-control upload-type" onchange="changeInput(this,'+i+')"><option value="">Select</option><option selected value="doc" selected>Document</option><option value="video">Video</option></select></td><td class="align-middle" id="td-content_title'+i+'"><input type="text" name="content_title[]" tid="'+i+'" id="content_title'+i+'" placeholder="Enter Title" class="form-control" autocomplete="off" value="'+obj.getAllContentRecord[i].title+'"/></td><td class="align-middle" id="td-content'+i+'"><input type="file" name="content[]"  cid="'+i+'" multiple id="content'+i+'" class="form-control-file"/><input type="hidden" name="content_doc'+i+'" value="'+obj.getAllContentRecord[i].document_path+'"></td><td class="align-middle" id="td-content_publish_date'+i+'"><input type="date" name="content_publish_date[]" tid="'+i+'" id="content_publish_date'+i+'"  class="form-control" value="'+obj.getAllContentRecord[i].publish_date+'"/></td>';
                             content_html +='</tr>';
                             
                         }else if(obj.getAllContentRecord[i].content_type=='video'){
@@ -351,16 +351,16 @@ $(document).ready(function() {
             return false;
         }
     
-        if (!$.trim($("#publish_date").val()).length) { // zero-length string AFTER a trim
-            $("#publish_date").focus();
-            toastAlert({
-                type: "error",
-                title: "",
-                message: "Please select publish date",
-                buttonText: ""
-            })
-            return false;
-        }
+        // if (!$.trim($("#publish_date").val()).length) { // zero-length string AFTER a trim
+        //     $("#publish_date").focus();
+        //     toastAlert({
+        //         type: "error",
+        //         title: "",
+        //         message: "Please select publish date",
+        //         buttonText: ""
+        //     })
+        //     return false;
+        // }
             //alert($("#is_edit_mode").val());
             if ($.trim($("#is_edit_mode").val()) == "" ) {
                 if (!$.trim($("#material_type0").val()).length) { // zero-length string AFTER a trim
@@ -378,6 +378,7 @@ $(document).ready(function() {
                 var is_err = false;
                 $('[name^="material_type"]').each(function(){  
                 // alert($.trim(this.value));
+                    var id = $(this).attr("mid");
                     var ctype =  $("#content"+id).attr("type");
                     if(ctype=="text"){
                         var msg = "Please enter video link";

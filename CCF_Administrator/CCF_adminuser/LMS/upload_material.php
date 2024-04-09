@@ -162,15 +162,15 @@ $departmentRecord = getDepartmentAllData();
                                 </div>
                             </div> 
                             
-                            <div class="col-md-4 mb-2">
+                            <!-- <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="semester_id">Publish Date</label>
                                     <input type="date" id="publish_date" name="publish_date" class="form-control" value="<?php echo date('Y-m-d'); ?>">
                                 </div>
-                            </div> 
+                            </div>  -->
                         </div>
                         
-                        <div class="row" id="edit-content" style="display:none">
+                        <!-- <div class="row" id="edit-content" style="display:none">
                         	<div class="col-md-12 mb-2">
                             	<div class="form-group">
                                     <input type="hidden" id="is_edit_mode" name="is_edit_mode" value="">
@@ -187,7 +187,7 @@ $departmentRecord = getDepartmentAllData();
                                 </div>
                                 <input type="file" class="form-control" id="edit_document_path" name="edit_document_path" multiple style="display:none">
                             </div>
-                        </div>                        
+                        </div>                         -->
                         
                         <div class="table-responsive" id="material-table">
                         <table class="table table-bordered text-nowrap" id="teacher-table">
@@ -217,6 +217,7 @@ $departmentRecord = getDepartmentAllData();
                             <a class="btn btn-dark btn-sm" href="javascript:void(0)" id="addRow"><i class="fa-solid fa-circle-plus"></i> Add New Row</a>
                         </p>
                     </div>
+                    <input type="hidden" id="is_edit_mode" name="is_edit_mode" value="">
                     <input type="hidden" id="study_id" name="study_id" class="form-control" value="">
                     <input type="hidden" id="content_id" name="content_id" class="form-control" value="">
                     <div class="modal-footer">

@@ -24,7 +24,7 @@ $subject_id = transformInput($_POST["subject_id"]);
 $material_id = transformInput($_POST["material_id"]);
 $paper_type_id = transformInput($_POST["paper_type_id"]);
 $semester_id = implode(",",$_POST["semester_id"]);
-$publish_date = $_POST["publish_date"];  
+//$publish_date = $_POST["publish_date"];  
 
 $material_type =  isset($_POST["material_type"])?$_POST["material_type"]:"";
 $content_title = isset($_POST["content_title"])?$_POST["content_title"]:"";
@@ -43,80 +43,103 @@ $success =  false;
 // print_r($content);die;
 //print_r($_FILES);
 
-if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
-    $study_id = transformInput($_POST["study_id"]);
-    $edit_content_title = $_POST["edit_content_title"];
-    $edit_video_link = $_POST["edit_video_link"];
-    //$edit_document_path = transformInput($_POST["edit_document_path"]);
+// if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
+//     $study_id = transformInput($_POST["study_id"]);
+//     $edit_content_title = $_POST["edit_content_title"];
+//     $edit_video_link = $_POST["edit_video_link"];
+//     //$edit_document_path = transformInput($_POST["edit_document_path"]);
 
-    $qryUpdate = $dbConn->prepare('UPDATE LMS_study_material SET course_id = :course_id,stream_id = :stream_id,department_id = :department_id,material_id = :material_id,paper_type_id = :paper_type_id,semester_id = :semester_id,subject_id = :subject_id WHERE study_id = :study_id');
+//     $qryUpdate = $dbConn->prepare('UPDATE LMS_study_material SET course_id = :course_id,stream_id = :stream_id,department_id = :department_id,material_id = :material_id,paper_type_id = :paper_type_id,semester_id = :semester_id,subject_id = :subject_id WHERE study_id = :study_id');
         
-    $qryUpdate->execute([  
-        'study_id' => $study_id,
-        'course_id' => $course_id,
-        'stream_id' => $stream_id,
-        'department_id' => $department_id,
-        'material_id' => $material_id,
-        'paper_type_id' => $paper_type_id,
-        'subject_id' => $subject_id,
-        'semester_id' => $semester_id
-    ]);
-    if($qryUpdate){
-        if(isset($_POST["edit_video_link"]) && $_POST["edit_video_link"]!=''){
-            $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,video_link = :video_link,publish_date = :publish_date,created_by = :created_by,created_by_user = :created_by_user WHERE content_id = :content_id');
-            $ContentQryUpdate->execute([
-                'content_id' => $content_id,
-                'title' => $edit_content_title,
-                'video_link' => $edit_video_link,
-                'publish_date' => $publish_date,
-                'created_by' => $created_by,
-                'created_by_user' => $created_by_user
-            ]);
-            if($ContentQryUpdate){
-                $success = true;
-            }
-        }
+//     $qryUpdate->execute([  
+//         'study_id' => $study_id,
+//         'course_id' => $course_id,
+//         'stream_id' => $stream_id,
+//         'department_id' => $department_id,
+//         'material_id' => $material_id,
+//         'paper_type_id' => $paper_type_id,
+//         'subject_id' => $subject_id,
+//         'semester_id' => $semester_id
+//     ]);
+//     if($qryUpdate){
+//         if(isset($_POST["edit_video_link"]) && $_POST["edit_video_link"]!=''){
+//             $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,video_link = :video_link,publish_date = :publish_date,created_by = :created_by,created_by_user = :created_by_user WHERE content_id = :content_id');
+//             $ContentQryUpdate->execute([
+//                 'content_id' => $content_id,
+//                 'title' => $edit_content_title,
+//                 'video_link' => $edit_video_link,
+//                 'publish_date' => $publish_date,
+//                 'created_by' => $created_by,
+//                 'created_by_user' => $created_by_user
+//             ]);
+//             if($ContentQryUpdate){
+//                 $success = true;
+//             }
+//         }
 
-        $material_name = getMaterialNameById($material_id);
-        if( isset($_FILES['edit_document_path']['name']) && $_FILES['edit_document_path']['name']!=""){
-            $_FILES['edit_document_path']['name'];
-            $tmpFilePath = $_FILES['edit_document_path']['tmp_name'];
-            $newFilePath = "uploads/materials/$material_name/" .$study_id.'-'.$created_by.'-'. microtime().'-'.$_FILES['edit_document_path']['name'];
+//         $material_name = getMaterialNameById($material_id);
+//         if( isset($_FILES['edit_document_path']['name']) && $_FILES['edit_document_path']['name']!=""){
+//             $_FILES['edit_document_path']['name'];
+//             $tmpFilePath = $_FILES['edit_document_path']['tmp_name'];
+//             $newFilePath = "uploads/materials/$material_name/" .$study_id.'-'.$created_by.'-'. microtime().'-'.$_FILES['edit_document_path']['name'];
 
-            if(move_uploaded_file($tmpFilePath, $newFilePath)) {
-                $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,document_path = :document_path,publish_date = :publish_date,created_by = :created_by,created_by_user = :created_by_user WHERE content_id = :content_id');
+//             if(move_uploaded_file($tmpFilePath, $newFilePath)) {
+//                 $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,document_path = :document_path,publish_date = :publish_date,created_by = :created_by,created_by_user = :created_by_user WHERE content_id = :content_id');
 
-                $ContentQryUpdate->execute([
-                    'content_id' => $content_id,
-                    'title' => $edit_content_title,
-                    'document_path' => $newFilePath,
-                    'publish_date' => $publish_date,
-                    'created_by' => $created_by,
-                    'created_by_user' => $created_by_user
-                ]);
-                if($ContentQryUpdate){
-                    unlink($_POST["pre_doc_val"]);
-                    $success = true;
-                }
-            }
-        }else{
+//                 $ContentQryUpdate->execute([
+//                     'content_id' => $content_id,
+//                     'title' => $edit_content_title,
+//                     'document_path' => $newFilePath,
+//                     'publish_date' => $publish_date,
+//                     'created_by' => $created_by,
+//                     'created_by_user' => $created_by_user
+//                 ]);
+//                 if($ContentQryUpdate){
+//                     unlink($_POST["pre_doc_val"]);
+//                     $success = true;
+//                 }
+//             }
+//         }else{
             
-            $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,document_path = :document_path WHERE content_id = :content_id');
+//             $ContentQryUpdate = $dbConn->prepare('UPDATE LMS_study_content SET title = :title,document_path = :document_path WHERE content_id = :content_id');
 
-            $ContentQryUpdate->execute([
-                'content_id' => $content_id,
-                'title' => $edit_content_title,
-                'document_path' => $_POST["pre_doc_val"]
-            ]);
-            if($ContentQryUpdate){
-                $success = true;
+//             $ContentQryUpdate->execute([
+//                 'content_id' => $content_id,
+//                 'title' => $edit_content_title,
+//                 'document_path' => $_POST["pre_doc_val"]
+//             ]);
+//             if($ContentQryUpdate){
+//                 $success = true;
+//             }
+//         }
+//     }
+
+// }
+// else
+// {
+
+    if(isset($_POST["study_id"]) && $_POST["study_id"]!=''){
+        $study_id = $_POST["study_id"];
+        $contentQry = $dbConn->prepare("select * FROM LMS_study_content where study_id = $study_id");
+        $contentQry->execute();
+        $contentRecord = $contentQry->fetchAll(PDO::FETCH_ASSOC);
+        if($contentRecord){
+            foreach ($contentRecord as $value) {
+               if(isset($value['document_path'])){
+                //unlink($value['document_path']);
+               }
             }
         }
-    }
 
-}
-else
-{
+        $qryContentDelete = $dbConn->prepare("DELETE FROM LMS_study_content WHERE study_id = :study_id");
+        $qryContentDelete->execute([
+            'study_id' => $study_id
+        ]);
+        $qryStudyDelete = $dbConn->prepare("DELETE FROM LMS_study_material WHERE study_id = :study_id");
+        $qryStudyDelete->execute([
+            'study_id' => $study_id
+        ]);
+    }
 
     $qryInsert = $dbConn->prepare('INSERT INTO LMS_study_material (course_id,stream_id,department_id,material_id,paper_type_id,semester_id,subject_id)VALUES (:course_id,:stream_id,:department_id,:material_id,:paper_type_id,:semester_id,:subject_id)');
 
@@ -161,6 +184,7 @@ else
                 $material_name = getMaterialNameById($material_id);
                 $count_doc = $count_doc + 1;
                 $_FILES['content']['name'][$count_doc-1];
+
                 $tmpFilePath = $_FILES['content']['tmp_name'][$count_doc-1];
                 $newFilePath = "uploads/materials/$material_name/" .$study_material_id.'-'.$created_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
                 if(move_uploaded_file($tmpFilePath, $newFilePath)) {
@@ -171,6 +195,21 @@ else
                         'title' => $content_title[$kay],
                         'content_type' => $material,
                         'document_path' => $newFilePath,
+                        'publish_date' => $content_publish_date[$kay],
+                        'created_by' => $created_by,
+                        'created_by_user' => $created_by_user
+                    ]);
+                    if($qryInsertContent){
+                        $success = true;
+                    }
+                }else{
+                    $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,document_path,publish_date,created_by,created_by_user)VALUES (:study_id,:title,:content_type,:document_path,:publish_date,:created_by,:created_by_user)');
+
+                    $qryInsertContent->execute([
+                        'study_id' => $study_material_id,
+                        'title' => $content_title[$kay],
+                        'content_type' => $material,
+                        'document_path' => $_POST["content_doc".$kay],
                         'publish_date' => $content_publish_date[$kay],
                         'created_by' => $created_by,
                         'created_by_user' => $created_by_user
@@ -189,7 +228,7 @@ else
         $arr["msg"]="study material not inserted";   
     }
     
-}
+//}
 
 //die;
 
