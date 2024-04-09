@@ -46,11 +46,11 @@ $password = $_POST["password"];
             ]);
             if($qryUpdate){
 
-                $teacherRecord = getTeacherAllData();
+                //$teacherRecord = getTeacherAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Updated";	
-                $arr["teacherRecord"]=$teacherRecord;
+                //$arr["teacherRecord"]=$teacherRecord;
             }else{
                 $arr["status"]=0;
                 $arr["msg"]="Something Went Wrong";   
@@ -84,11 +84,11 @@ $password = $_POST["password"];
                 
             ]);
             if($qryInsert){
-                $teacherRecord = getTeacherAllData();
+                //$teacherRecord = getTeacherAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Saved";	
-                $arr["teacherRecord"]=$teacherRecord;
+                //$arr["teacherRecord"]=$teacherRecord;
             }else{
                 $arr["status"]=0;
                 $arr["msg"]="Something Went Wrong";   

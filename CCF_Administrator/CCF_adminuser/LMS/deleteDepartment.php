@@ -21,10 +21,10 @@ if($status == 'Active'){
         'is_active' => $new_status
     ]);
     if($qryDelete){
-        $departmentRecord = getDepartmentAllData();
+       // $departmentRecord = getDepartmentAllData();
         $arr["status"]=1;
 		$arr["msg"]="Status updated successfully";	
-        $arr["departmentRecord"]=$departmentRecord;
+        //$arr["departmentRecord"]=$departmentRecord;
     }else{
         $arr["status"]=0;
         $arr["msg"]="Something Went Wrong";   

@@ -28,15 +28,15 @@ $teacher_id = $_POST["teacher_id"];
 	if($is_hod == 1){ 
 		$departmentSql .= " and department_id = $department_id";
 	}
-	$departmentQry = $dbConn->prepare($departmentSql);
-	$departmentQry->execute();
-	$departmentRecord = $departmentQry->fetchAll(PDO::FETCH_ASSOC);
+	// $departmentQry = $dbConn->prepare($departmentSql);
+	// $departmentQry->execute();
+	// $departmentRecord = $departmentQry->fetchAll(PDO::FETCH_ASSOC);
 
 	if($teacherRecord) {
        
 		$arr["status"]=1;
 		$arr["data"]=$teacherRecord;	 
-		$arr["departmentRecord"]=$departmentRecord;	 
+		//$arr["departmentRecord"]=$departmentRecord;	 
 
 	 }
 	 else {

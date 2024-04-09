@@ -30,10 +30,10 @@ $stream_code = transformInput($_POST["stream_code"]);
             ]);
             if($qryUpdate){
                 
-                $streamRecord = getStreamAllData();
+                //$streamRecord = getStreamAllData();
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Updated";	
-                $arr["streamRecord"]=$streamRecord;
+                //$arr["streamRecord"]=$streamRecord;
             }else{
                 $arr["status"]=0;
                 $arr["msg"]="Something Went Wrong";   
@@ -61,11 +61,11 @@ $stream_code = transformInput($_POST["stream_code"]);
                 'stream_code' => $stream_code
             ]);
             if($qryInsert){
-                $streamRecord = getStreamAllData();
+                //$streamRecord = getStreamAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Saved";	
-                $arr["streamRecord"]=$streamRecord;
+                //$arr["streamRecord"]=$streamRecord;
             }else{
                 $arr["status"]=0;
                 $arr["msg"]="Something Went Wrong";   

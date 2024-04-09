@@ -3,6 +3,8 @@ include("../sessionConfig.php");
 include("../../connection_CCF.php");
 include("../function.php");
 include("../../configuration_CCF.php");
+// echo "<pre>";
+// print_r($_SESSION);
 
 //print_r($semesters);
 //$collegerollno = $_POST["txtrollno"]; 
@@ -11,6 +13,15 @@ $student_stream = isset($_SESSION["student_stream"])?$_SESSION["student_stream"]
 $student_subject = isset($_SESSION["student_subject"])?$_SESSION["student_subject"]:'';
 $presentsemester = isset($_SESSION["presentsemester"])?$_SESSION["presentsemester"]:'';
 
+
+$studentSubSql = "select * from studentSemesterCourse  where collegeRollno = '".$collegerollno."'";
+$studentSubQry = $dbConn->prepare($studentSubSql);
+$studentSubQry->execute();
+$studentSubRecord = $studentSubQry->fetchAll(PDO::FETCH_ASSOC);
+echo "<pre>";
+print_r($studentSubRecord); die;
+
+
 include("../Query_dashboard.php");
 
 $qryresult = NULL;
@@ -18,36 +29,40 @@ $semester1 = [];$semester2 = [];$semester3 = [];$semester4 = [];$semester5 = [];
 $semester7 = [];$semester8 = [];
 
 
-$contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,sc.publish_date,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
+$contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,sc.publish_date,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id,sm.subject_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
 left join LMS_department_master as dm on dm.department_id = sm.department_id
 left join LMS_material_master as mm on mm.material_id = sm.material_id
 left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id where sc.is_active=1 and stream.stream_code= '".$student_stream."' and  dm.department_name= '".$student_subject."' order by sc.content_id desc");
 $contentQry->execute();
 $contentRecord = $contentQry->fetchAll(PDO::FETCH_ASSOC);
+// echo "<pre>";
+// print_r($contentRecord);
 if($contentRecord){
     foreach ($contentRecord as $value) {
-        if($value['semester_id']==1){
+
+        
+        if(in_array('I', explode(',',$value['semester_id']))){
             $semester1[] = $value;
         }
-        if($value['semester_id']==2){
+        if(in_array('II', explode(',',$value['semester_id']))){
             $semester2[] = $value;
         }
-        if($value['semester_id']==3){
+        if(in_array('III', explode(',',$value['semester_id']))){
             $semester3[] = $value;
         }
-        if($value['semester_id']==4){
+        if(in_array('IV', explode(',',$value['semester_id']))){
             $semester4[] = $value;
         }
-        if($value['semester_id']==5){
+        if(in_array('V', explode(',',$value['semester_id']))){
             $semester5[] = $value;
         }
-        if($value['semester_id']==6){
+        if(in_array('VI', explode(',',$value['semester_id']))){
             $semester6[] = $value;
         }
-        if($value['semester_id']==7){
+        if(in_array('VII', explode(',',$value['semester_id']))){
             $semester7[] = $value;
         }
-        if($value['semester_id']==8){
+        if(in_array('VIII', explode(',',$value['semester_id']))){
             $semester8[] = $value;
         }
     }

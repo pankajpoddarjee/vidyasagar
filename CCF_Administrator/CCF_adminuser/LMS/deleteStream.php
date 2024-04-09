@@ -22,11 +22,11 @@ if($status == 'Active'){
         'is_active' => $new_status
     ]);
     if($qryDelete){
-        $streamRecord = getStreamAllData();
+        //$streamRecord = getStreamAllData();
 
         $arr["status"]=1;
 		$arr["msg"]="Status updated successfully";	
-        $arr["streamRecord"]=$streamRecord;
+        //$arr["streamRecord"]=$streamRecord;
     }else{
         $arr["status"]=0;
         $arr["msg"]="Something Went Wrong";   

@@ -1,19 +1,28 @@
 <?php 
 include("config.php");
 include("lmsfunction.php");
-$is_hod = isset($_SESSION['is_hod'])?$_SESSION['is_hod']:"";
-$department_id = isset($_SESSION['department_id'])?$_SESSION['department_id']:"";
-$teacherSql = "";
-$teacherSql .= "select teacher.teacher_id,teacher.teacher_name,teacher.email,teacher.mobile,teacher.designation,teacher.is_hod,teacher.is_active,course.course_name,dept.department_name FROM LMS_teacher_master as teacher LEFT JOIN LMS_course_master as course on course.course_id = teacher.course_id LEFT JOIN LMS_department_master as dept ON teacher.department_id = dept.department_id";
+// $is_hod = isset($_SESSION['is_hod'])?$_SESSION['is_hod']:"";
+// $department_id = isset($_SESSION['department_id'])?$_SESSION['department_id']:"";
+// $departmentSql = "";
+// $departmentSql .= "select * FROM LMS_department_master where is_active=1";
+// if($is_hod == 1 || (($_SESSION['usertype'] == 'teacher' && $_SESSION['is_hod'] == 0))){ 
+//     $departmentSql .= " and department_id = $department_id";
+// }
+// $departmentQry = $dbConn->prepare($departmentSql);
+// $departmentQry->execute();
 
-if($is_hod == 1){
-    $teacherSql .= " where teacher.department_id = $department_id";
-}
-$teacherSql .= " order by course.course_name desc, dept.department_name ASC, teacher.teacher_name ASC";
-$teacherQry = $dbConn->prepare($teacherSql);
-$teacherQry->execute();
-$teacherRecord = $teacherQry->fetchAll(PDO::FETCH_ASSOC);
+// $teacherSql = "";
+// $teacherSql .= "select teacher.teacher_id,teacher.teacher_name,teacher.email,teacher.mobile,teacher.designation,teacher.is_hod,teacher.is_active,course.course_name,dept.department_name FROM LMS_teacher_master as teacher LEFT JOIN LMS_course_master as course on course.course_id = teacher.course_id LEFT JOIN LMS_department_master as dept ON teacher.department_id = dept.department_id";
+
+// if($is_hod == 1){
+//     $teacherSql .= " where teacher.department_id = $department_id";
+// }
+// $teacherSql .= " order by course.course_name desc, dept.department_name ASC, teacher.teacher_name ASC";
+// $teacherQry = $dbConn->prepare($teacherSql);
+// $teacherQry->execute();
+// $teacherRecord = $teacherQry->fetchAll(PDO::FETCH_ASSOC);
 $courseRecord = getCourseAllData();
+$departmentRecord = getDepartmentAllData();
 ?>
 <!doctype html>
 <html lang="en">
@@ -60,51 +69,7 @@ $courseRecord = getCourseAllData();
                             <th class="align-middle text-nowrap">Action</th>
                         </tr>
                         </thead>
-                        <tbody id="teacher-table-body">
-                        <?php if($teacherRecord){
-                            $i=1;
-                            foreach ($teacherRecord as $value) {
-                        ?>
-                        <tr>
-                            <td class="align-middle"><?php echo $i ?></td>
-                            <td class="align-middle text-left text-nowrap">
-                                <a class="d-flex align-items-center avatar_link" href="user_profile.php">
-                                    <div class="flex-shrink-0">
-                                        <!--<div class="avatar">
-                                        	<img class="img-fluid rounded-circle" src="" alt="">
-                                        </div>-->
-                                        
-                                        <div class="avatar avatar-initials avatar-circle">
-                                            <span class="text-uppercase"><?php echo mb_substr($value['teacher_name'], 0, 1); ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ml-2">
-                                    	<span class="text-inherit mb-0">
-                                        	<?php echo $value['teacher_name']; ?> 
-                                            <sup><?php echo ($value['is_hod']==1)?"<i class='fa-solid fa-user-graduate' data-toggle='tooltip' data-placement='top' title='(HOD)'></i>":""; ?></sup>
-                                        </span>
-                                    </div>
-                                </a>
-                            </td>
-                            <td class="align-middle"><?php echo $value['department_name'] ?></td>
-                            <td class="align-middle"><?php echo $value['course_name'] ?></td>
-                            <td class="align-middle"><?php echo $value['email']; ?></td>
-                            <td class="align-middle"><?php echo $value['mobile']; ?></td>
-                            <td class="align-middle text-nowrap"><?php echo ($value['is_active']==1)?"<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active":"<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive" ?></td>
-                            <td class="align-middle text-nowrap">
-                            <button class="btn btn-info open-edit-teacher-modal" cid="<?php echo  $value['teacher_id'];?>" data-toggle="tooltip" data-placement="top" title="Edit Teacher">
-                            	<i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="open-delete-teacher-modal btn btn-<?php echo ($value['is_active']==1)?"success":"danger" ?>" status="<?php echo  $value['is_active'];?>" cid="<?php echo  $value['teacher_id'];?>" data-toggle="tooltip" data-placement="top" title="Change Status">
-								<i class="fa-solid fa-arrows-rotate"></i>
-                            </button></td>
-                        </tr>
-                       <?php $i++; } } else{ ?>
-                        <tr>
-                            <td colspan="8">No Record Found</td>
-                        </tr>
-                       <?php } ?>
-                       </tbody>
+                        
                     </table>                
                     </div>
                 </div>
@@ -143,6 +108,12 @@ $courseRecord = getCourseAllData();
                                 <div class="form-group">
                                     <label for="department_id">Select Department</label>
                                     <select class="form-control" name="department_id" id="department_id">
+                                    <option value="">Select</option>
+                                    <?php if($departmentRecord){
+                                        foreach ($departmentRecord as $department) { ?>
+                                        <option value="<?php echo $department['department_id']; ?>"><?php echo $department['department_name']; ?></option>
+                                    <?php  } } ?>
+                                    
                                     </select>
                                 </div>
                             </div>
@@ -266,5 +237,7 @@ $courseRecord = getCourseAllData();
     </div>
     <!--MODAL END-->     
    <script src="teacher.js"></script>
+
+
 </body>
 </html>

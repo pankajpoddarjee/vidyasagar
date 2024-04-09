@@ -21,10 +21,10 @@ if($status == 'Active'){
         'is_active' => $new_status
     ]);
     if($qryDelete){
-        $teacherRecord = getTeacherAllData();
+        //$teacherRecord = getTeacherAllData();
         $arr["status"]=1;
 		$arr["msg"]="Status updated successfully";	
-        $arr["teacherRecord"]=$teacherRecord;
+        //$arr["teacherRecord"]=$teacherRecord;
     }else{
         $arr["status"]=0;
         $arr["msg"]="Something Went Wrong";   

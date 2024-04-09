@@ -26,11 +26,11 @@ $course_name = transformInput($_POST["course_name"]);
                 'course_name' => $course_name
             ]);
             if($qryUpdate){
-                $courseRecord = getCourseAllData();
+                //$courseRecord = getCourseAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Updated";	
-                $arr["courseRecord"]=$courseRecord;
+                //$arr["courseRecord"]=$courseRecord;
             }else{
                 $arr["status"]=0;
                 $arr["msg"]="Something Went Wrong";   
@@ -53,11 +53,11 @@ $course_name = transformInput($_POST["course_name"]);
                 'course_name' => $course_name
             ]);
             if($qryInsert){
-                $courseRecord = getCourseAllData();
+                //$courseRecord = getCourseAllData();
         
                 $arr["status"]=1;
                 $arr["msg"]="Successfully Saved";	
-                $arr["courseRecord"]=$courseRecord;
+                //$arr["courseRecord"]=$courseRecord;
             }else{
                 $arr["status"]=0;
                 $arr["msg"]="Something Went Wrong";   

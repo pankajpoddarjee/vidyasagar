@@ -1,18 +1,19 @@
 <?php 
 include("config.php");
 include("lmsfunction.php");
-$contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
-left join LMS_department_master as dm on dm.department_id = sm.department_id
-left join LMS_material_master as mm on mm.material_id = sm.material_id
-left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id
-order by sc.content_id desc");
-$contentQry->execute();
-$contentRecord = $contentQry->fetchAll(PDO::FETCH_ASSOC);
+// $contentQry = $dbConn->prepare("select sc.content_id,sc.title,sc.content_type,sc.video_link,sc.document_path,sc.is_active,cm.course_name,stream.stream_name,dm.department_name,mm.material_name,ptm.paper_type_name,sm.semester_id FROM LMS_study_content as sc left join LMS_study_material as sm on sm.study_id = sc.study_id left join LMS_course_master as cm on sm.course_id = cm.course_id left join LMS_stream_master as stream on stream.stream_id = sm.stream_id
+// left join LMS_department_master as dm on dm.department_id = sm.department_id
+// left join LMS_material_master as mm on mm.material_id = sm.material_id
+// left join LMS_paper_type_master as ptm on ptm.paper_type_id = sm.paper_type_id
+// order by sc.content_id desc");
+// $contentQry->execute();
+// $contentRecord = $contentQry->fetchAll(PDO::FETCH_ASSOC);
 
 $courseRecord = getCourseAllData();
 $materialRecord = getMaterialAllData();
 $paperTypeRecord = getPaperTypeAllData();
 $semesterRecord = geAllSemester();
+$departmentRecord = getDepartmentAllData();
 ?>
 <!doctype html>
 <html lang="en">
@@ -61,50 +62,7 @@ $semesterRecord = geAllSemester();
                                 <th class="align-middle">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="material-table-body">
-                        <?php if($contentRecord){
-                            $i=1;
-                            foreach ($contentRecord as $value) {
-                        ?>
                         
-                        <tr>
-                            <td class="align-middle"><?php echo $i ?></td>
-                            <td class="align-middle"><?php echo $value['course_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['stream_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['department_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['material_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['paper_type_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['semester_id']; ?></td>
-                            <td class="align-middle"><?php echo $value['title']; ?></td>
-                            <?php if($value['content_type'] == 'video') { ?>
-                            <td class="align-middle">
-                                <a class="btn btn-outline-danger" href="<?php echo $value['video_link']; ?>" data-toggle="tooltip" data-placement="top" title="Video" target="_blank">
-                                	<i class="fa-solid fa-video"></i>
-                                </a>
-                            </td>   
-                            <?php } else { ?>
-                            <td class="align-middle">
-                                <a download class="btn btn-outline-danger" href="<?php echo $value['document_path']; ?>" data-toggle="tooltip" data-placement="top" title="Document" target="_blank">
-                                	<i class="fa-solid fa-file"></i>
-                                </a>
-                            </td>   
-                            <?php } ?>
-                                         
-                            <td class="align-middle text-nowrap">
-                                <button class="btn btn-info open-edit-material-modal" cid="<?php echo  $value['content_id'];?>" data-toggle="tooltip" data-placement="top" title="Edit Material">
-                            	<i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <button class="open-delete-material-modal btn btn-<?php echo ($value['is_active']==1)?"success":"danger" ?>" status="<?php echo  $value['is_active'];?>" cid="<?php echo $value['content_id'];?>" data-toggle="tooltip" data-placement="top" title="Change Status">
-                                    <i class="fa-solid fa-arrows-rotate"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <?php $i++; } } else{ ?>
-                        <tr>
-                            <td class="align-middle" colspan="10">No Record Found</td>
-                        </tr>
-                       <?php } ?>
-                       </tbody>
                     </table>
                     </div>                    
 					
@@ -125,37 +83,18 @@ $semesterRecord = geAllSemester();
                     <div class="modal-body">
                     
                     	<div class="row">
-                        	<div class="col-md-4 mb-2">
-                                <div class="form-group">
-                                    <label for="course_id">Select Course</label>
-                                    <select class="form-control" name="course_id" id="course_id">
-                                        <option value="">Select</option>
-                                        <?php if($courseRecord){
-											foreach ($courseRecord as $course) { ?>
-												<option value="<?php echo $course['course_id']; ?>"><?php echo $course['course_name']; ?></option>
-										<?php  } } ?>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4 mb-2">
-                                <div class="form-group">
-                                    <label for="stream_id">Select Stream</label>
-                                    <select class="form-control" name="stream_id" id="stream_id">
-                                        <option value="">Select</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
                             <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="department_id">Select Department</label>
-                                    <select class="form-control" name="department_id" id="department_id">
+                                    <select class="form-control" name="department_id" id="department_id" onchange="getSubject()">
                                         <option value="">Select</option>
+                                        <?php if($departmentRecord){
+                                        foreach ($departmentRecord as $department) { ?>
+                                        <option value="<?php echo $department['department_id']; ?>"><?php echo $department['department_name']; ?></option>
+                                        <?php  } } ?>
                                     </select>
                                 </div>
                             </div>
-                            
                             <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="material_id">Select Material Type</label>
@@ -168,28 +107,56 @@ $semesterRecord = geAllSemester();
                                     </select>
                                 </div>
                             </div>
-                            
                             <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="paper_type_id">Select Paper Type</label>
-                                    <select class="form-control" name="paper_type_id" id="paper_type_id">
+                                    <select class="form-control" name="paper_type_id" id="paper_type_id" onChange="getSubject()">
                                         <option value="">Select</option>
                                         <?php if($paperTypeRecord){
 											foreach ($paperTypeRecord as $paper) { ?>
-												<option value="<?php echo $paper['paper_type_id']; ?>"><?php echo $paper['paper_type_name']; ?></option>
+												<option value="<?php echo $paper['paper_type_id']; ?>"><?php echo $paper['subpaper_type']; ?></option>
 										<?php  } } ?>
                                     </select>
                                 </div>
                             </div>
-                            
+
+                            <div class="col-md-4 mb-2" id="subject_id_div" style="display:none">
+                                <div class="form-group">
+                                    <label for="paper_type_id">Select Subject</label>
+                                    <select class="form-control" name="subject_id" id="subject_id">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+
+                        	<div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label for="course_id">Select Course</label>
+                                    <select class="form-control" name="course_id" id="course_id">
+                                        <option value="">Select</option>
+                                        <?php if($courseRecord){
+											foreach ($courseRecord as $course) { ?>
+												<option value="<?php echo $course['course_id']; ?>"><?php echo $course['course_name']; ?></option>
+										<?php  } } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="form-group">
+                                    <label for="stream_id">Select Stream</label>
+                                    <select class="form-control multiple-select1" multiple="multiple" name="stream_id[]" id="stream_id">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="semester_id">Select Semester</label>
-                                    <select class="form-control" name="semester_id" id="semester_id">
+                                    <select class="form-control multiple-select1" multiple="multiple" name="semester_id[]" id="semester_id">
                                         <option value="">Select</option>
                                         <?php if($semesterRecord){
-											foreach ($semesterRecord as $key => $semester) { ?>
-												<option value="<?php echo $key; ?>"><?php echo $semester; ?></option>
+											foreach ($semesterRecord as $semester) { ?>
+												<option value="<?php echo $semester; ?>"><?php echo $semester; ?></option>
 										<?php  } } ?>
                                     </select>
                                 </div>
@@ -198,7 +165,7 @@ $semesterRecord = geAllSemester();
                             <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="semester_id">Publish Date</label>
-                                    <input type="date" id="publish_date" name="publish_date" class="form-control">
+                                    <input type="date" id="publish_date" name="publish_date" class="form-control" value="<?php echo date('Y-m-d'); ?>">
                                 </div>
                             </div> 
                         </div>
@@ -215,7 +182,7 @@ $semesterRecord = geAllSemester();
                             <div class="col-md-12 mb-2">
                             	<div class="form-group">
                                     <input type="hidden" id="pre_doc_val" name="pre_doc_val">
-                                    <label for="edit_video_link">Video Link</label>
+                                    <label for="edit_video_link" id="content_of_material_font">Video Link</label>
                                     <input type="text" class="form-control" id="edit_video_link" name="edit_video_link" minlength="" maxlength="" data-trigger="focus" placeholder="Enter Video Link" autocomplete="off" style="display:none">
                                 </div>
                                 <input type="file" class="form-control" id="edit_document_path" name="edit_document_path" multiple style="display:none">
@@ -229,6 +196,7 @@ $semesterRecord = geAllSemester();
                                     <th class="align-middle">Content Type</th>
                                     <th class="align-middle">Content Title</th>
                                     <th class="align-middle">File/Link</th>
+                                    <th class="align-middle">Publish Date</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
                             </thead>

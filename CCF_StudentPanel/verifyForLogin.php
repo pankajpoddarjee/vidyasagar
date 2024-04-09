@@ -17,7 +17,7 @@ $DOByy  = $_POST["choDOByy"];
 
 
  $qry	=	"select st.applicationNo,st.name,st.presentsemester, ISNULL(st.passOutStatus,'') as passOutStatus,st.collegeRollNo, ccm.stream, ccm.subjectNameDisplay from studentmaster st
-JOIN College_CourseMaster ccm ON ccm.subjectcode=st.appsubjectcode where   ccm.subjectcode='".$dept."' and st.collegeRollNo='".$rollno."' and st.dd=".$DOBdd." and st.mm=".$DOBmm." and st.yy=".$DOByy." and ISNULL(st.studentActiveStatus,0)=1;";
+JOIN College_CourseMaster ccm ON ccm.subjectcode=st.appsubjectcode where ccm.subjectcode='".$dept."' and st.collegeRollNo='".$rollno."' and st.dd=".$DOBdd." and st.mm=".$DOBmm." and st.yy=".$DOByy." and ISNULL(st.studentActiveStatus,0)=1;";
  
 /*if($courseType=='CBCS'){
 $qryresult = $dbConn->query($qry);

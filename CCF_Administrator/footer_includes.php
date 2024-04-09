@@ -26,6 +26,7 @@ $('[data-toggle="tooltip"]').tooltip()
 <script src="<?php echo BASE_URL_HOME;?>/bootstrap/js/scrollreveal.min.js"></script>
 <script src="<?php echo BASE_URL_HOME;?>/bootstrap/toast/toast.js"></script>
 <!--Data Table Start-->
+
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/dataTables.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/dataTables.buttons.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/buttons.dataTables.js"></script>
@@ -34,7 +35,10 @@ $('[data-toggle="tooltip"]').tooltip()
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/vfs_fonts.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/js/buttons.print.min.js"></script>
+
 <!--Data Table Ends-->
+
+
 <script>
 window.sr = ScrollReveal();		
 	sr.reveal('.info1', {

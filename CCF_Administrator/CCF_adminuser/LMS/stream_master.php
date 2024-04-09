@@ -1,10 +1,5 @@
 <?php 
 include("config.php");
-
-$streamQry = $dbConn->prepare("select stream.stream_id,stream.stream_name,stream.stream_code,stream.is_active,course.course_name FROM LMS_stream_master as stream join LMS_course_master as course on course.course_id = stream.course_id order by course.course_name desc, stream.stream_name ASC");
-$streamQry->execute();
-$streamRecord = $streamQry->fetchAll(PDO::FETCH_ASSOC);
-
 $courseQry = $dbConn->prepare("select * FROM LMS_course_master where is_active=1 order by course_name ASC");
 $courseQry->execute();
 $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
@@ -53,32 +48,7 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                             <th>Action</th>
                         </tr>
                         </thead>
-                        <tbody id="stream-table-body">
-                        <?php if($streamRecord){
-                            $i=1;
-                            foreach ($streamRecord as $value) {
-                        ?>
-                        <tr>
-                            <td class="align-middle"><?php echo $i;?></td>
-                            <td class="align-middle"><?php echo $value['course_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['stream_name']; ?></td>
-                            <td class="align-middle"><?php echo $value['stream_code']; ?></td>
-                            <td class="align-middle"><?php echo ($value['is_active']==1)?"<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active":"<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive" ?></td>
-                            <td>
-                            <button class="btn btn-info open-edit-stream-modal" cid="<?php echo  $value['stream_id'];?>" data-toggle="tooltip" data-placement="top" title="Edit Stream">
-                            	<i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="open-delete-stream-modal btn btn-<?php echo ($value['is_active']==1)?"success":"danger" ?>" status="<?php echo  $value['is_active'];?>" cid="<?php echo  $value['stream_id'];?>" data-toggle="tooltip" data-placement="top" title="Change Status">
-								<i class="fa-solid fa-arrows-rotate"></i>
-                            </button>
-                            </td>
-                        </tr>
-                       <?php $i++; } } else{ ?>
-                        <tr>
-                            <td colspan="5">No Record Found</td>
-                        </tr>
-                       <?php } ?>
-                       </tbody>
+                        
                     </table>
                 
                     </div>                    
@@ -167,16 +137,33 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <!--MODAL END-->    
 	<script> 
-        $(document).ready(function() {
-            new DataTable('#stream-table', {
-                
-                layout: {
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    $(document).ready(function() {
+        //Initialize table
+        var dataRecords = $('#stream-table').DataTable({
+            //"lengthChange": false,
+            //"searching":false,
+            //"processing":true,
+            "serverSide":true,
+            //'processing': true,
+            'serverMethod': 'post',		
+            "order":[],
+            "ajax":{
+                url:"list_ajax_action.php",
+                type:"POST",
+                data:{action:'listRecordsStream'},
+                dataType:"json"
+            },
+            "columnDefs":[
+                {
+                    "targets":[0],
+                    "orderable":false,
                 },
-                
-            });
-        } );
-        
+            ],
+            "pageLength": 10,
+            "paging": true,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            
+        });	
         // OPEN MODAL FOR INSERT COURSE           
         $( "#open-add-stream-modal" ).on( "click", function() {
             $('#stream-form').trigger("reset");
@@ -187,6 +174,7 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
             $("#course_id").val("");
             $('#add-edit-stream-modal').modal('show');
         } );
+
         // OPEN MODAL FOR Edit Stream 
         $('body').on('click','.open-edit-stream-modal',function(){
             $('#dvLoading').show();
@@ -227,9 +215,9 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                 
             });
         });
+
         // INSERT AND UPDATE SCRIPT
         $('body').on('click','#save-course',function(){
-       // $( "#save-course" ).on( "click", function() { 
             
             if(!$.trim($("#course_id").val()).length) { // zero-length string AFTER a trim
                 
@@ -274,17 +262,18 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                 
                 if(data.status==1)
                 { 
-                    var html = '';
+                    //var html = '';
                     //html += '<table class="table table-bordered " id="stream-table"><tr><th>SL.</th><th>Course Name</th><th>Stream Name</th><th>Stream Code</th><th>Action</th></tr>';
                    
-                    for (let i = 0; i < data.streamRecord.length; i++) {
-                        var status = (data.streamRecord[i].is_active==1) ? "<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active" : "<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive";
-                        var status_class = (data.streamRecord[i].is_active==1) ? "success" : "danger";
-                        html += '<tr><td class="align-middle">'+(i+1)+'</td><td class="align-middle">'+data.streamRecord[i].course_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_code+'</td><td class="align-middle">'+status+'</td><td class="align-middle"><button class="btn btn-info open-edit-stream-modal" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Edit Stream"><i class="fa-solid fa-pen-to-square"></i></button> <button class="open-delete-stream-modal btn btn-'+status_class+'" status="'+data.streamRecord[i].is_active+'" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
-                    }
+                    // for (let i = 0; i < data.streamRecord.length; i++) {
+                    //     var status = (data.streamRecord[i].is_active==1) ? "<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active" : "<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive";
+                    //     var status_class = (data.streamRecord[i].is_active==1) ? "success" : "danger";
+                    //     html += '<tr><td class="align-middle">'+(i+1)+'</td><td class="align-middle">'+data.streamRecord[i].course_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_code+'</td><td class="align-middle">'+status+'</td><td class="align-middle"><button class="btn btn-info open-edit-stream-modal" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Edit Stream"><i class="fa-solid fa-pen-to-square"></i></button> <button class="open-delete-stream-modal btn btn-'+status_class+'" status="'+data.streamRecord[i].is_active+'" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
+                    // }
                     
                     //html += '</table>';
-                    $('#stream-table-body').html(html);
+                    dataRecords.ajax.reload();
+                    //$('#stream-table-body').html(html);
                     $('#add-edit-stream-modal').modal('hide');
                     $("#stream-title").text("Add Stream"); 
                     $("#stream_name").val("");
@@ -313,6 +302,7 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
             }
             });
         } );
+
         // OPEN MODAL FOR DELETE COURSE  
         $('body').on('click','.open-delete-stream-modal',function(){
             var stream_id = $(this).attr("cid");
@@ -349,18 +339,19 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
                     
                     if(data.status==1)
                     { 
-                        var html = '';
+                        //var html = '';
                         //html += '<table class="table table-bordered " id="stream-table"><tr><th>SL.</th><th>Course Name</th><th>Stream Name</th><th>Stream Code</th><th>Action</th></tr>';
 
                     
-                        for (let i = 0; i < data.streamRecord.length; i++) {
-                            var status = (data.streamRecord[i].is_active==1) ? "<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active" : "<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive";
-                            var status_class = (data.streamRecord[i].is_active==1) ? "success" : "danger";
-                            html += '<tr><td class="align-middle">'+(i+1)+'</td><td class="align-middle">'+data.streamRecord[i].course_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_code+'</td><td class="align-middle">'+status+'</td><td class="align-middle"><button class="btn btn-info open-edit-stream-modal" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;<button class="open-delete-stream-modal btn btn-'+status_class+'" status="'+data.streamRecord[i].is_active+'" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
-                        }
+                        // for (let i = 0; i < data.streamRecord.length; i++) {
+                        //     var status = (data.streamRecord[i].is_active==1) ? "<i class='fa-regular fa-circle-dot' style='color:#2ec900'></i> Active" : "<i class='fa-regular fa-circle-dot' style='color:#c90020'></i> Inactive";
+                        //     var status_class = (data.streamRecord[i].is_active==1) ? "success" : "danger";
+                        //     html += '<tr><td class="align-middle">'+(i+1)+'</td><td class="align-middle">'+data.streamRecord[i].course_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_name+'</td><td class="align-middle">'+data.streamRecord[i].stream_code+'</td><td class="align-middle">'+status+'</td><td class="align-middle"><button class="btn btn-info open-edit-stream-modal" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;<button class="open-delete-stream-modal btn btn-'+status_class+'" status="'+data.streamRecord[i].is_active+'" cid="'+data.streamRecord[i].stream_id+'" data-toggle="tooltip" data-placement="top" title="Change Status"><i class="fa-solid fa-arrows-rotate"></i></button></td></tr>';
+                        // }
                         
                         //html += '</table>';
-                        $('#stream-table-body').html(html);
+                        //$('#stream-table-body').html(html);
+                        dataRecords.ajax.reload();
                         $('#delete-stream-modal').modal('hide');
                         $("#stream-title").text("Add Stream"); 
                         toastAlert({
@@ -390,6 +381,12 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
             })
         } );
 
+    });
+        
+        
+        
+        
+        
         // DELETE COURSE SCRIPT
         // $( "#delete-stream" ).on( "click", function() { 
            
