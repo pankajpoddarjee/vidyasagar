@@ -10,12 +10,12 @@ define("BASE_TIME_ZONE","Asia/Calcutta");
 
 define("VIEWPORT","width=device-width, initial-scale=1.0, user-scalable=0");//width=device-width, initial-scale=1, shrink-to-fit=no (bootstrap 4)
 //define("BASE_URL","http://110.227.107.223/VMC_SDMS");// WITH IPv4
-define("BASE_URL","http://localhost/VMC_SDMS");
-define("BASE_URL_HOME","http://localhost/VMC_SDMS");
-define("BASE_URL_STUDENT","http://localhost/VMC_SDMS/CCF_StudentPanel"); // CCF
+define("BASE_URL","http://office-5/VMC_SDMS");
+define("BASE_URL_HOME","http://office-5/VMC_SDMS");
+define("BASE_URL_STUDENT","http://office-5/VMC_SDMS/CCF_StudentPanel"); // CCF
 define("BASE_ROOT_FOLDER","/VMC_SDMS"); 
 define("SOFTWARE_NAMECODE","Student Management System");
-define("GOOGLE_FONT_1","https://fonts.googleapis.com/css?family=Poppins|Roboto|Rubik|Viga|Oswald|Montserrat|AR+One+Sans|Inter:wght@400;600&display=swap");
+define("GOOGLE_FONT_1","https://fonts.googleapis.com/css?family=Poppins|Roboto|Rubik|Viga|Oswald|Montserrat|Courgette|AR+One+Sans|Inter:wght@400;600&display=swap");
 define("FONT_AWESOME_CSS","https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css");
 define("SESSIONYR","2023-24");
 
@@ -34,15 +34,15 @@ define("DOBYEARFROM",1975);
 define("DOBYEARTO",2005);
 
 define("COLLEGE_CODE","VMC");
-define("COLLEGE_NAME","Vidyasagar Metropolitan College");
+define("COLLEGE_NAME","Vidyasagar Metropolitan College"); //Vidyasagar Metropolitan College
 define("COLLEGE_ACCREDIATION", "NAAC Accredited");
 define("COLLEGE_TAG",""); //NAAC Grade 'A' Institution
 define("COLLEGE_LOGO","images/Logo.png");
 define("FAVICON","images/ico.jpg");
 
-define("COLLEGE_ADDRESS","39, Sankar Ghosh Lane, Kolkata-700006");
-define("COLLEGE_PHNO"," +91 033 2241 9508");
-define("COLLEGE_EMAIL","vidyasagarevening@yahoo.in");
+define("COLLEGE_ADDRESS","");//39, Sankar Ghosh Lane, Kolkata-700006
+define("COLLEGE_PHNO",""); //+91 033 2241 9508
+define("COLLEGE_EMAIL",""); //vidyasagarevening@yahoo.in
 
 
 $BAGENarrlistSem3 =array('Bengali', 'English', 'Hindi', 'Political Science', 'Geography', 'Mathematics', 'Physiology');

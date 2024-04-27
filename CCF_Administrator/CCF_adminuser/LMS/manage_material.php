@@ -47,18 +47,20 @@ $departmentRecord = getDepartmentAllData();
             <div class="row">
                 <div class="col-md-12 text-center">                    
                     <div class="table-responsive">
-                    <table class="table table-bordered" id="study-material-table">
+                    <table class="table table-bordered text-nowrap" id="study-material-table">
                         <thead>
                             <tr style="background:#f8fafd; color:#758289">
                                 <th class="align-middle">Srl.</th>
+                                <th class="align-middle">Backend ID.</th>
+                                <th class="align-middle">Teacher Name</th>
                                 <th class="align-middle">Course</th>
                                 <th class="align-middle">Stream</th>
                                 <th class="align-middle">Department</th>
                                 <th class="align-middle text-nowrap">Material Type</th>
                                 <th class="align-middle text-nowrap">Paper Type</th>
                                 <th class="align-middle">Semester</th>
-                                <th class="align-middle">Title</th>
-                                <th class="align-middle">Link</th>
+                                <th class="align-middle">Total Content</th>
+                                <!-- <th class="align-middle">Link</th> -->
                                 <th class="align-middle">Action</th>
                             </tr>
                         </thead>
@@ -74,11 +76,16 @@ $departmentRecord = getDepartmentAllData();
     <?php include("../../footer_includes.php");?>   
     <!--MODAL START STREAM MASTER-->
     <div class="modal fade" id="add-material-modal" tabindex="-1" role="dialog" aria-labelledby="ValidationAlertTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <form method="post" id="material-form"  enctype="multipart/form-data">
                     <div class="modal-header">
                         <h4 class="modal-title" id="material-title" style="font-family:Oswald"></h4>
+
+                        <h4 class="modal-title" id="delete-all" style="font-family:Oswald; float:right;display:none"><button type="button" class="remove-all"  study_id="" all_child_with_parent="0"> Delete All Child</button></h4>
+
+                        <h4 class="modal-title" id="delete-all-with-parent" style="font-family:Oswald; float:right;display:none"><button type="button" class="remove-all"  study_id="" all_child_with_parent="1">Delete All Child With Parent</button></h4>
+
                     </div>
                     <div class="modal-body">
                     
@@ -110,7 +117,7 @@ $departmentRecord = getDepartmentAllData();
                             <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="paper_type_id">Select Paper Type</label>
-                                    <select class="form-control" name="paper_type_id" id="paper_type_id" onChange="getSubject()">
+                                    <select class="form-control" name="paper_type_id" id="paper_type_id" onChange="getSubject();getStream();">
                                         <option value="">Select</option>
                                         <?php if($paperTypeRecord){
 											foreach ($paperTypeRecord as $paper) { ?>
@@ -132,7 +139,7 @@ $departmentRecord = getDepartmentAllData();
                         	<div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="course_id">Select Course</label>
-                                    <select class="form-control" name="course_id" id="course_id">
+                                    <select class="form-control" name="course_id" id="course_id" onChange="getStream();">
                                         <option value="">Select</option>
                                         <?php if($courseRecord){
 											foreach ($courseRecord as $course) { ?>
@@ -145,7 +152,7 @@ $departmentRecord = getDepartmentAllData();
                                 <div class="form-group">
                                     <label for="stream_id">Select Stream</label>
                                     <select class="form-control multiple-select1" multiple="multiple" name="stream_id[]" id="stream_id">
-                                        <option value="">Select</option>
+                                        <!-- <option value="">Select</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -153,7 +160,7 @@ $departmentRecord = getDepartmentAllData();
                                 <div class="form-group">
                                     <label for="semester_id">Select Semester</label>
                                     <select class="form-control multiple-select1" multiple="multiple" name="semester_id[]" id="semester_id">
-                                        <option value="">Select</option>
+                                        <!-- <option value="">Select</option> -->
                                         <?php if($semesterRecord){
 											foreach ($semesterRecord as $semester) { ?>
 												<option value="<?php echo $semester; ?>"><?php echo $semester; ?></option>
@@ -162,15 +169,15 @@ $departmentRecord = getDepartmentAllData();
                                 </div>
                             </div> 
                             
-                            <div class="col-md-4 mb-2">
+                            <!-- <div class="col-md-4 mb-2">
                                 <div class="form-group">
                                     <label for="semester_id">Publish Date</label>
                                     <input type="date" id="publish_date" name="publish_date" class="form-control" value="<?php echo date('Y-m-d'); ?>">
                                 </div>
-                            </div> 
+                            </div>  -->
                         </div>
                         
-                        <div class="row" id="edit-content" style="display:none">
+                        <!-- <div class="row" id="edit-content" style="display:none">
                         	<div class="col-md-12 mb-2">
                             	<div class="form-group">
                                     <input type="hidden" id="is_edit_mode" name="is_edit_mode" value="">
@@ -187,15 +194,16 @@ $departmentRecord = getDepartmentAllData();
                                 </div>
                                 <input type="file" class="form-control" id="edit_document_path" name="edit_document_path" multiple style="display:none">
                             </div>
-                        </div>                        
+                        </div>                         -->
                         
                         <div class="table-responsive" id="material-table">
-                        <table class="table table-bordered text-nowrap" id="teacher-table">
+                        <table class="table table-bordered text-nowrap" id="content-table">
                         	<thead>
                                 <tr style="background:#f8fafd; color:#758289">
                                     <th class="align-middle">Content Type</th>
                                     <th class="align-middle">Content Title</th>
                                     <th class="align-middle">File/Link</th>
+                                    <th class="align-middle">Publish Date</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
                             </thead>
@@ -216,8 +224,17 @@ $departmentRecord = getDepartmentAllData();
                             <a class="btn btn-dark btn-sm" href="javascript:void(0)" id="addRow"><i class="fa-solid fa-circle-plus"></i> Add New Row</a>
                         </p>
                     </div>
+                    <input type="hidden" id="is_edit_mode" name="is_edit_mode" value="">
                     <input type="hidden" id="study_id" name="study_id" class="form-control" value="">
                     <input type="hidden" id="content_id" name="content_id" class="form-control" value="">
+                    <input type="hidden" id="teacher_id" name="teacher_id" class="form-control" value="">
+                    <input type="hidden" id="m_created_by" name="m_created_by" class="form-control" value="">
+                    <input type="hidden" id="m_created_at" name="m_created_at" class="form-control" value="">
+                    <input type="hidden" id="m_created_device" name="m_created_device" class="form-control" value="">
+                    <input type="hidden" id="m_updated_by" name="m_updated_by" class="form-control" value="">
+                    <input type="hidden" id="m_updated_at" name="m_updated_at" class="form-control" value="">
+                    <input type="hidden" id="m_updated_device" name="m_updated_device" class="form-control" value="">
+                    <input type="hidden" id="created_by_user" name="created_by_user" class="form-control" value="">
                     <div class="modal-footer">
                         <button type="button" id="save-study-material" class="btn btn-success btn-sm" >Save</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -240,7 +257,8 @@ $departmentRecord = getDepartmentAllData();
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                       <h5>Are you sure want to <strong id="active-inactive"></strong> this study material ?</h5>
+                       <!--<h5>Are you sure want to <strong id="active-inactive"></strong> this study material ?</h5>-->
+                       <h5>Are you sure want to <strong class="text-danger">DELETE</strong> this study material ?</h5>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" id="delete_content_id" name="delete_content_id">
@@ -253,6 +271,6 @@ $departmentRecord = getDepartmentAllData();
         </div>
     </div>
     <!--MODAL END--> 
-       <script src="upload_material.js"></script>
+       <script src="manage_material.js"></script>
 </body>
 </html>

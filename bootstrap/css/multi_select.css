@@ -48,9 +48,7 @@ color: #000;
 
 .ms-options-wrap > .ms-options {
 position: absolute;
-left: 0;
-width: 100%;
-margin-top: 1px;
+width: 80%;
 margin-bottom: 20px;
 background: white;
 z-index: 2000;
@@ -65,16 +63,15 @@ visibility: visible
 
 .ms-options-wrap > .ms-options > .ms-search input {
 width: 100%;
-padding: 4px 5px;
-border: none;
-border-bottom: 1px groove;
+padding: 7px 5px;
+border: none; background:rgba(255,255,204,0.6);
+border-bottom: 1px solid #CCC;
 outline: none;
 }
 
 .ms-options-wrap > .ms-options .ms-selectall {
 display: inline-block;
-font-size: .9em;
-text-transform: lowercase;
+font-size: 13px;
 text-decoration: none;
 }
 .ms-options-wrap > .ms-options .ms-selectall:hover {

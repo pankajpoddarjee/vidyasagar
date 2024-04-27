@@ -35,10 +35,10 @@ if($userRecord){
 <meta name="viewport" content="<?php echo VIEWPORT;?>">
 <meta name="description" content="">
 
-<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+<!--<link rel="stylesheet" href="../../../bootstrap/cropper/dropzone.css" />-->
+<link href="../../../bootstrap/cropper/cropper.css" rel="stylesheet"/>
 <!-- <script src="https://unpkg.com/dropzone"></script> -->
-<script src="https://unpkg.com/cropperjs"></script>
+<script src="../../../bootstrap/cropper/cropper.js"></script>
 <title><?php echo COLLEGE_CODE; ?> | LMS | User Profile</title>
 <?php include("../../head_includes.php");?>
 </head>
@@ -164,12 +164,12 @@ color: white;
                         </a>
                         <?php } ?>
                     </h3>
-                    <h6 class="designation">Assistant Professor</h6>
+                    <h6 class="designation"><?php echo !empty($userRecord['department_id'])?getDepartmentNameById($userRecord['department_id']):'NA'; ?></h6>
                     <hr>
                     <ul class="details">
-                    	<li><i class="fa-solid fa-person"></i> Male</li>
-                    	<li><i class="fa-solid fa-cake-candles"></i> March 11, 1992</li>
-                    	<li><i class="fa-solid fa-location-dot"></i> Kolkata, West Bengal</li>
+                    	<li><i class="fa-solid fa-person"></i> <?php echo  !empty($userRecord['gender']) ? ucfirst($userRecord['gender']): 'NA' ?> </li>
+                    	<li><i class="fa-solid fa-cake-candles"></i> <?php echo  !empty($userRecord['dob']) ? date('F d, Y', strtotime($userRecord['dob'])) : 'NA' ?> </li>
+                    	<li><i class="fa-solid fa-location-dot"></i> <?php echo  !empty($userRecord['address']) ? ucfirst($userRecord['address']): 'NA' ?></li>
                     </ul>
                 </div>
                 
@@ -187,19 +187,28 @@ color: white;
                 <div class="col-md-4 mb-3">
                     <h5 class="headings"><i class="fa-solid fa-user-tie"></i> Basic Information</h5>
                     <ul class="details">
-                    	<li><i class="fa-solid fa-genderless"></i> Gender: Male</li>
-                    	<li><i class="fa-solid fa-person"></i> Marital Status: Married</li>
-                    	<li><i class="fa-solid fa-cake-candles"></i> Date of Birth: March 11, 1992</li>
-                    	<li><i class="fa-solid fa-cake-candles"></i> Anniversary Date: January 27, 2019</li>
+                    	<li><i class="fa-solid fa-genderless"></i> Gender: <?php echo  !empty($userRecord['gender']) ? ucfirst($userRecord['gender']): 'NA' ?></li>
+                            <?php 
+                            $m_status = "NA";
+                                if(!empty($userRecord['is_married'])){
+                                    $m_status = ($userRecord['is_married'] == 1)? 'Married': 'Unmarried';
+                                }else{
+                                    $m_status = "NA";
+                                }
+                            ?>
+
+                    	<li><i class="fa-solid fa-person"></i> Marital Status: <?php echo $m_status; ?></li>
+                    	<li><i class="fa-solid fa-cake-candles"></i> Date of Birth: <?php echo  !empty($userRecord['dob']) ? date('F d, Y', strtotime($userRecord['dob'])) : 'NA' ?></li>
+                    	<li><i class="fa-solid fa-cake-candles"></i> Anniversary Date: <?php echo  !empty($userRecord['doa']) ? date('F d, Y', strtotime($userRecord['doa'])) : 'NA' ?></li>
                     </ul>
                 </div>
                 
                 <div class="col-md-4 mb-3">
                     <h5 class="headings"><i class="fa-solid fa-briefcase"></i> Work Details</h5>
                     <ul class="details">
-                    	<li><i class="fa-solid fa-calendar-days"></i> Date of Joining: April 20, 2022</li>
-                    	<li><i class="fa-solid fa-user-tie"></i> Designation: Assistant Professor</li>
-                    	<li><i class="fa-solid fa-book"></i> Department: Physics</li>
+                    	<li><i class="fa-solid fa-calendar-days"></i> Date of Joining: <?php echo  !empty($userRecord['doj']) ? date('F d, Y', strtotime($userRecord['doj'])) : 'NA' ?></li>
+                    	<li><i class="fa-solid fa-user-tie"></i> Designation: <?php echo  !empty($userRecord['designation']) ? ucwords($userRecord['designation']): 'NA' ?></li>
+                    	<li><i class="fa-solid fa-book"></i> Department: <?php echo !empty($userRecord['department_id'])?getDepartmentNameById($userRecord['department_id']):'NA'; ?></li>
                     </ul>
                 </div>
                 
@@ -207,12 +216,12 @@ color: white;
                     <h5 class="headings"><i class="fa-solid fa-earth-asia"></i> Contact Details</h5>
                     <ul class="details">
                     	<li>
-                            <i class="fa-solid fa-map-location-dot"></i> 38/1B, S.G.M. Lane, Kolkata, West Bengal, India
+                            <i class="fa-solid fa-map-location-dot"></i> <?php echo  !empty($userRecord['address']) ? ucfirst($userRecord['address']): 'NA' ?>
                         </li>
-                    	<li><i class="fa-solid fa-mobile-screen-button"></i> +91 8100299860</li>
-                    	<li><i class="fa-brands fa-whatsapp"></i> +91 8100299860</li>
-                    	<li><i class="fa-solid fa-at"></i> bharracharya.soumyadipta@gmail.com</li>
-                    	<li><i class="fa-solid fa-earth-asia"></i> www.soumyacons.com</li>
+                    	<li><i class="fa-solid fa-mobile-screen-button"></i> +91 <?php echo  !empty($userRecord['mobile']) ? $userRecord['mobile']: 'NA' ?></li>
+                    	<!-- <li><i class="fa-brands fa-whatsapp"></i> +91 8100299860</li> -->
+                    	<li><i class="fa-solid fa-at"></i> <?php echo  !empty($userRecord['email']) ? $userRecord['email']: 'NA' ?></li>
+                    	<!-- <li><i class="fa-solid fa-earth-asia"></i> www.soumyacons.com</li> -->
                         <hr>
                         <i class="fa-solid fa-link"></i> Connect via
                         <li class="mt-4">
@@ -228,7 +237,7 @@ color: white;
             
         </div>
         <!-- //open crop image modal -->
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -325,8 +334,8 @@ color: white;
                                     <label for="teacher_name">Is Married</label>
                                     <select name="is_married" id="is_married" class="form-control">
                                         <option value="">Select</option>
-                                        <option value="1" <?php echo ($userRecord['is_married'] == 1)?"selected":""; ?> >Yes</option>
-                                        <option value="0" <?php echo ($userRecord['is_married'] == 0)?"selected":""; ?> >No</option>
+                                        <option value="1" <?php echo ($userRecord['is_married'] == 1)?"selected":""; ?> >Married</option>
+                                        <option value="0" <?php echo ($userRecord['is_married'] == 0)?"selected":""; ?> >Unmarried</option>
                                     </select>
                                 </div>
                             </div>
@@ -384,7 +393,7 @@ color: white;
         $modal.on('shown.bs.modal', function() {
             cropper = new Cropper(image, {
                 aspectRatio: 1,
-                viewMode: 3,
+                viewMode: 2,
                 preview:'.preview'
             });
         }).on('hidden.bs.modal', function(){

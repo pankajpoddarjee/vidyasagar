@@ -12,8 +12,6 @@ $subjectRecord = getSubjectAllData();
 <meta name="description" content="">
 <title><?php echo COLLEGE_CODE; ?> | LMS | Department Master</title>
 <?php include("../../head_includes.php");?>
-<!-- <script src="js/multiselect/jquery.multiselect.js"></script>
-<link rel="stylesheet" href="js/multiselect/jquery.multiselect.css"> -->
 
 </head>
 <body >
@@ -47,8 +45,7 @@ $subjectRecord = getSubjectAllData();
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
-                        </thead>
-                        
+                        </thead>                        
                     </table>
                 
                     </div>                    
@@ -119,7 +116,7 @@ $subjectRecord = getSubjectAllData();
 
     <!--MODAL ASSOCIATE SUBJECT -->
     <div class="modal fade" id="add-subject-modal" tabindex="-1" role="dialog" aria-labelledby="ValidationAlertTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <form method="post" id="associate-subject-form">
                     <div class="modal-header">
@@ -158,7 +155,7 @@ $subjectRecord = getSubjectAllData();
     $(document).ready(function() {
         //Initialize table
         var dataRecords = $('#department-table').DataTable({
-            "lengthChange": false,
+            //"lengthChange": false,
             "processing":true,
             "serverSide":true,
             'processing': true,
@@ -173,13 +170,13 @@ $subjectRecord = getSubjectAllData();
             },
             "columnDefs":[
                 {
-                    "targets":[0,1],
+                    "targets":[0],
                     "orderable":false,
                 },
             ],
-            "pageLength": 10
-            // "paging": true,
-            // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": 10,
+            "paging": true,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
             
         });	
 
@@ -386,6 +383,8 @@ $subjectRecord = getSubjectAllData();
             $('#dvLoading').show();
             var department_id = $(this).attr("cid");
             var department_name_title = $(this).attr("dname");
+            var user_department_id = $(this).attr("udid");
+            var user_type = $(this).attr("utype");
 			//console.log(department_name);
             var data = {action:'getAllSubject'};
             //alert(department_id);
@@ -405,6 +404,7 @@ $subjectRecord = getSubjectAllData();
                         html = '';
                         
                         for (let i = 0; i < data.subjectRecord.length; i++) {
+                            $("#ms-opt-"+i).attr('disabled','disabled');
                             //console.log(data.subjectRecord[i].department_id);
                             if(data.subjectRecord[i].department_id == department_id) {
                                 subject_selected = "selected";
@@ -414,26 +414,48 @@ $subjectRecord = getSubjectAllData();
                             var department_name = '';
                             var subject_type = '';
                             if(data.subjectRecord[i].department_name){
-                                department_name = ' ('+data.subjectRecord[i].department_name+')';
+                                department_name = '                 (Dept. - '+data.subjectRecord[i].department_name+') ';
                             }
                             if(data.subjectRecord[i].SubjectType){
                                 subject_type = '<span class="text-danger"> ('+data.subjectRecord[i].SubjectType+')</span>';
                             }
                             html += '<option value="' + data.subjectRecord[i].subject_id + '" '+subject_selected+'>' + data.subjectRecord[i].SubjectName_SDMS + subject_type + department_name +'</option>';
                         }
-
+                       // $(".selected").css('pointer-events','none');
                         $('#subject_id').html(html);
+                        
                         $("#subject_id").multiselect('reload');
                         $('#subject_id').multiselect({
                             reload : true,
                             columns: 1,
                             texts: {
                                 placeholder: 'Select Subject',
-                                search     : 'Search Subject'
+                                search     : 'Type here to search'
                             },
                             search: true,
                             selectAll: true
                         });
+                        if(user_type == 'teacher'){
+                            for (let i = 0; i < data.subjectRecord.length; i++) {
+                                // if(data.subjectRecord[i].department_id == department_id) {
+                                //     //$(".selected").css('pointer-events','none');
+                                //     $("#ms-opt-"+(i+1)).attr('disabled','disabled');
+                                
+                                // }
+                                if(data.subjectRecord[i].department_name){
+                                    if(data.subjectRecord[i].department_id != user_department_id){
+                                        $("#ms-opt-"+(i+1)).attr('disabled','disabled');
+                                        // $("#ms-opt-"+(i+1)).css('color','red');
+                                         //$(".selected").css('color','green');
+                                         var parent = $("#ms-opt-"+(i+1)).closest("li");
+                                         parent.css('color','red');
+                                    }else{
+                                        var parent = $("#ms-opt-"+(i+1)).closest("li");
+                                         parent.css('color','green');
+                                    }
+                                }
+                            }
+                        }
                         $('#department_id_for_subject').val(department_id);
                         $('#assign-for-subject').text(department_name_title);
                         $('#add-subject-modal').modal('show'); 

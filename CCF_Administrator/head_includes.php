@@ -7,7 +7,10 @@
 <link rel="stylesheet" href="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/css/dataTables.css">
 <link rel="stylesheet" href="<?php echo BASE_URL_HOME;?>/bootstrap/data_table/css/buttons_dataTables.css">
 <!--Data Table Ends-->
-
+<!-- Table filter -->
+<script src="<?php echo BASE_URL_HOME;?>/bootstrap/table_filter/table_filter.js"></script>
+<link rel="stylesheet" href="<?php echo BASE_URL_HOME;?>/bootstrap/table_filter/table_filter.css">
+<!-- Table filter -->
 
 
 

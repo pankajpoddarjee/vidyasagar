@@ -203,11 +203,13 @@ a.article:hover {
                 <li>
                     <a href="stream_master.php"><i class="fa-solid fa-gears mr-2"></i>Stream Master</a>
                 </li>
+                <?php } ?>
+                <?php if(($_SESSION['usertype'] != 'teacher' && $_SESSION['is_hod'] == 0) || ( $_SESSION['usertype'] == 'teacher' && $_SESSION['is_hod'] == 1)) { ?>
                 <li>
                     <a href="department_master.php"><i class="fa-solid fa-gears mr-2"></i>Department Master</a>
                 </li>
-                <?php } ?>
-                <?php if(($_SESSION['usertype'] != 'teacher' && $_SESSION['is_hod'] == 0) || ( $_SESSION['usertype'] == 'teacher' && $_SESSION['is_hod'] == 1)) { ?>
+                
+                
                 <li>
                     <a href="teacher_master.php"><i class="fa-solid fa-gears mr-2"></i>Teacher Master</a>
                 </li>
@@ -216,6 +218,17 @@ a.article:hover {
         </li>
         <li>
             <a href="upload_material.php"><i class="fa-solid fa-file-arrow-up mr-2"></i>Upload Material</a>
+        </li>
+        <li>
+            <a href="manage_material.php"><i class="fa-solid fa-file-arrow-up mr-2"></i>Manage Material</a>
+        </li>
+        <li>
+            <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-file-signature mr-2"></i>Reports</a>
+            <ul class="collapse list-unstyled" id="reportSubmenu">
+                <li>
+                    <a href="report_assigned_subject.php"><i class="fa-solid fa-file-lines mr-2"></i>Assigned Subject Report</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>

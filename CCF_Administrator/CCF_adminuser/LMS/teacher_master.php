@@ -69,7 +69,6 @@ $departmentRecord = getDepartmentAllData();
                             <th class="align-middle text-nowrap">Action</th>
                         </tr>
                         </thead>
-                        
                     </table>                
                     </div>
                 </div>

@@ -202,7 +202,7 @@ $semarr =  array('I','II','III','IV','V','VI');
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover" style="font-size:13px">
+                        <!--<table class="table table-bordered table-hover" style="font-size:13px">
                             <thead>
                                 <tr class="bg-light text-center">
                                     <td>&nbsp;</td>
@@ -219,7 +219,7 @@ $semarr =  array('I','II','III','IV','V','VI');
                                     <?php }?>
                                 </tr>						 
                             </tbody> 						
-                        </table>
+                        </table>-->
                     </div>
                 </div>
                 
@@ -270,7 +270,7 @@ $semarr =  array('I','II','III','IV','V','VI');
                 </div>-->
             </div>
 
-            <div class="row">
+            <!--<div class="row">
                 <div class="col-md-4 mb-3">
                 	<div id="piechart_3d" class="steps_follow_animation3" style="width:390px; height:300px"></div>
                 </div>
@@ -283,7 +283,7 @@ $semarr =  array('I','II','III','IV','V','VI');
                 <div class="col-md-12 mb-3 justify-content-center">
                 <div id="minoritychart" class="steps_follow_animation3" style="width:390px; height:300px"></div>
                 </div> 
-            </div>
+            </div>-->
         </div>
         
         <div class="clearfix"></div>

@@ -5,7 +5,7 @@
 
         // search filter options
         searchOptions : {
-            delay        : 250,                  // time (in ms) between keystrokes until search happens
+            delay        : 10,                  // time (in ms) between keystrokes until search happens
             showOptGroups: false,                // show option group titles if no options remaining
             searchText   : true,                 // search within the text
             searchValue  : false,                // search within the value

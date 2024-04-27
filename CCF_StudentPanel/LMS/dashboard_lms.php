@@ -91,9 +91,9 @@ $dbConn = NULL;
                                     <img src="../../images/Teacher_Feedback_icon.jpg" class="img-fluid rounded-circle" alt="">
                                 </div>
                                 <div class="card-body text-center">
-                                    <h5 class="card-title text-uppercase">Teacher Feedback</h5>
+                                    <h5 class="card-title text-uppercase">Student Feedback</h5>
                                     <hr>
-                                    <a class="btn btn-danger steps_follow_animation2" href="javascript:void(0)">
+                                    <a class="btn btn-danger steps_follow_animation2" href="Feedback/dashboard_feedback.php">
                                         Learn more
                                     </a>
                                 </div>
@@ -111,7 +111,7 @@ $dbConn = NULL;
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-uppercase">Student Grievance</h5>
                                     <hr>
-                                    <a class="btn btn-danger steps_follow_animation2" href="javascript:void(0)">
+                                    <a class="btn btn-danger steps_follow_animation2" href="Grievance/dashboard_grievance.php">
                                         Learn more
                                     </a>
                                 </div>

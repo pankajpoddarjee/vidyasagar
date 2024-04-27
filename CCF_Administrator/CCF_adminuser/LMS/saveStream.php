@@ -6,7 +6,7 @@
 
 $course_id = transformInput($_POST["course_id"]);
 $stream_id = transformInput($_POST["stream_id"]);
-$stream_name = transformInput($_POST["stream_name"]);
+$stream_name = $_POST["stream_name"];
 $stream_code = transformInput($_POST["stream_code"]);
 
 

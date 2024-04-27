@@ -135,7 +135,7 @@ function getPaperTypeAllData()
 {
     //include("../../../connection_CCF.php");
     global $dbConn;
-	$paperTypeQry = $dbConn->prepare("select * FROM LMS_paper_type_master order by is_active desc, paper_type_name desc");
+	$paperTypeQry = $dbConn->prepare("select * FROM LMS_paper_type_master where is_active = 1 order by is_active desc, sort asc");
     $paperTypeQry->execute();
     $paperTypeRecord = $paperTypeQry->fetchAll(PDO::FETCH_ASSOC);
 
@@ -219,5 +219,50 @@ function getSubjectAllData()
     return $subjectRecord;
 }
 
+function getAllPaperTypeForReport()
+{
+    global $dbConn;
+    $paperTypeRecord = [];
+	$paperTypeQry = $dbConn->prepare("select distinct SubjectType from CU_Master_Subject_Code_Type where IsActive=1 order by SubjectType ASC");
+    $paperTypeQry->execute();
+    $paperTypeRecord = $paperTypeQry->fetchAll(PDO::FETCH_ASSOC);
+    return $paperTypeRecord;
+}
+function getAllSubjectForReport()
+{
+    global $dbConn;
+    $subjectRecord = [];
+	$subjectQry = $dbConn->prepare("select distinct SubjectName_SDMS from CU_Master_Subject_Code_Type where IsActive=1 order by SubjectName_SDMS ASC");
+    $subjectQry->execute();
+    $subjectRecord = $subjectQry->fetchAll(PDO::FETCH_ASSOC);
+    return $subjectRecord;
+}
+function getAllDepartmentForReport()
+{
+    global $dbConn;
+    $departmentRecord = [];
+	$departmentQry = $dbConn->prepare("select * from LMS_department_master where is_active = 1 order by department_name ASC");
+    $departmentQry->execute();
+    $departmentRecord = $departmentQry->fetchAll(PDO::FETCH_ASSOC);
+    return $departmentRecord;
+}
+function getDepartmentNameById($dept_id)
+{
+    global $dbConn;
+    $departmentRecord = [];
+	$departmentQry = $dbConn->prepare("select department_name from LMS_department_master where department_id = $dept_id ");
+    $departmentQry->execute();
+    $departmentRecord = $departmentQry->fetch(PDO::FETCH_ASSOC);
+    return $departmentRecord['department_name'];
+}
+function grtNumberOfContentByStudyId($study_id)
+{
+    global $dbConn;
+    $contentRecord = [];
+	$contentQry = $dbConn->prepare("select count('content_id') as total from LMS_study_content  where study_id = $study_id and is_active=1");
+    $contentQry->execute();
+    $contentRecord = $contentQry->fetch(PDO::FETCH_ASSOC);
+    return $contentRecord['total'];
+}
 
 ?>

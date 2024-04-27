@@ -13,65 +13,47 @@ $courseRecord = $courseQry->fetchAll(PDO::FETCH_ASSOC);
 <meta name="description" content="">
 <title><?php echo COLLEGE_CODE; ?> | <?php echo PROGRAMME_CODE; ?> |  List of Student Report</title>
 <?php include("../../head_includes.php");?>
+<style type="text/css">
+.bg{background:#F5F7FA;}
+.TF{background: rgb(205,0,122);
+background: linear-gradient(130deg, rgba(205,0,122,0.5120259831460674) 0%, rgba(9,9,121,0.5682057584269663) 39%, rgba(0,212,255,0.1637113764044944) 100%);}
+</style>
 </head>
-<body >
+<body>
     <?php include("headermenu_lms.php");?>
     
-    <div id="content">
+    <div id="content" class="bg">
     	<?php include("../../header.php");?>
         <?php include("../headermenu_top.php");?>
         
-        
-        
-        <!-- <div class="container-fluid mt-4">
-        	<div class="row ">
-            	
-            <div class="col-md-12 border-bottom mb-3 pb-2">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h5 class="text-danger ">
-                            <i class="fa fa-bar-chart"></i> Dashboard Master
-                        </h5>
-                    </div>
-                    <div class="col-md-3 text-right">
-                    <button class="btn btn-outline-danger" id="open-add-course-modal">Add Course</button>
+        <div class="container">
+        	<div class="row">
+            	<div class="col-md-4 mb-3">
+                	
+                </div>
+                
+            	<div class="col-md-4 mb-3">
+                	<div class="row">
+                    	<div class="col-md-6">
+                        	<div class="TF">
+                                869<br>
+                                Teacher Feedback
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                        	869<br>
+                            Teacher Feedback
+                        </div>
                     </div>
                 </div>
                 
-            </div>
-
-                <div class="col-md-12 text-center">                    
-                    <div class="table-responsive" id="course-table">
-                    <table class="table table-bordered " >
-                        <tr>
-                            <th>SL.</th>
-                            <th>Course Name</th>
-                            <th>Action</th>
-                        </tr>
-                        <?php if($courseRecord){
-                            $i=1;
-                            foreach ($courseRecord as $value) {
-                        ?>
-                        <tr>
-                            <td><?php echo $i ?></td>
-                            <td><?php echo $value['course_name']; ?></td>                            
-                            <td><button class="open-edit-course-modal "  cid="<?php echo  $value['course_id'];?>">Edit</button>&nbsp;
-                            <button class="open-delete-course-modal btn btn-<?php echo ($value['is_active']==1)?"success":"danger" ?>" status="<?php echo  $value['is_active'];?>" cid="<?php echo  $value['course_id'];?>" ><?php echo ($value['is_active']==1)?"Active":"Inactive" ?></button></td>
-                        </tr>
-                       <?php $i++; } } else{ ?>
-                        <tr>
-                            <td colspan="3">No Record Found</td>
-                            
-                        </tr>
-                       <?php } ?>
-                    </table>
-                
-                    </div>                    
-					
+            	<div class="col-md-4 mb-3">
+                	
                 </div>
             </div>
-        </div> -->
-        <h2>this is dashboard</h2>
+        </div>
+        
         <?php include("../../footer.php");?>
     </div>	
     <?php include("../../footer_includes.php");?>   
