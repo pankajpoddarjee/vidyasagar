@@ -11,7 +11,9 @@
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/font-awesome-animation.min.css" rel="stylesheet">
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/table_style.css" rel="stylesheet">
 <link href="<?php echo BASE_URL_HOME;?>/bootstrap/css/multi_select.css" rel="stylesheet">
+<link href="<?php echo BASE_URL_HOME;?>/bootstrap/toast/toast.css" rel="stylesheet">
 <script src="<?php echo BASE_URL_HOME;?>/bootstrap/js/popper.min.js"></script>
+<script src="<?php echo BASE_URL_HOME;?>/bootstrap/toast/toast.js"></script>
 <script>
 $(function () {
 $('[data-toggle="popover"]').popover()

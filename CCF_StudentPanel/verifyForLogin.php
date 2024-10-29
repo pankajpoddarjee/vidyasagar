@@ -61,8 +61,8 @@ if($qryresult) {
 	 $arr["msg"]="You are already passed out."; 
  }
  else if(count($record)==0) {
-		$arr["status"]=0;
-		$arr["msg"]="Record not Found";  
+	$arr["status"]=0;
+	$arr["msg"]="Record not Found";  
 }
 
 echo json_encode($arr);

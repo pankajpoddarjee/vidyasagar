@@ -216,7 +216,7 @@ if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
                     $_FILES['content']['name'][$count_doc-1];
 
                     $tmpFilePath = $_FILES['content']['tmp_name'][$count_doc-1];
-                    $newFilePath = "uploads/materials/$material_name/" .$study_material_id.'-'.$content_created_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
+                    $newFilePath = "../../../uploads/materials/$material_name/" .$study_material_id.'-'.$content_created_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
                     if(move_uploaded_file($tmpFilePath, $newFilePath)) {
                         $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,document_path,publish_date,teacher_id,created_by_user,created_by,created_at,created_device)VALUES (:study_id,:title,:content_type,:document_path,:publish_date,:teacher_id,:created_by_user,:created_by,:created_at,:created_device)');
 
@@ -246,7 +246,7 @@ if(isset($_POST["content_id"]) && $_POST["content_id"]!=''){
                     $_FILES['content']['name'][$count_doc-1];
                     if(!empty($_FILES['content']['name'][$count_doc-1])){
                         $tmpFilePath = $_FILES['content']['tmp_name'][$count_doc-1];
-                        $newFilePath = "uploads/materials/$material_name/" .$study_material_id.'-'.$content_updated_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
+                        $newFilePath = "../../../uploads/materials/$material_name/" .$study_material_id.'-'.$content_updated_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
                         if(move_uploaded_file($tmpFilePath, $newFilePath)) {
 
                             $contentQry = $dbConn->prepare("select * FROM LMS_study_content where content_id = $c_id");
@@ -381,7 +381,7 @@ else
                     $_FILES['content']['name'][$count_doc-1];
 
                     $tmpFilePath = $_FILES['content']['tmp_name'][$count_doc-1];
-                    $newFilePath = "uploads/materials/$material_name/" .$study_material_id.'-'.$content_created_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
+                    $newFilePath = "../../../uploads/materials/$material_name/" .$study_material_id.'-'.$content_created_by.'-'. microtime().'-'.$_FILES['content']['name'][$count_doc-1];
                     if(move_uploaded_file($tmpFilePath, $newFilePath)) {
                         $qryInsertContent = $dbConn->prepare('INSERT INTO LMS_study_content (study_id,title,content_type,document_path,publish_date,teacher_id,created_by_user,created_by,created_at,created_device)VALUES (:study_id,:title,:content_type,:document_path,:publish_date,:teacher_id,:created_by_user,:created_by,:created_at,:created_device)');
 

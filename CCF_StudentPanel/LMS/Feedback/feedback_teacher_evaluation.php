@@ -3,6 +3,9 @@ include("../../sessionConfig.php");
 include("../../../connection_CCF.php");
 include("../../function.php");
 include("../../../configuration_CCF.php");
+include("feedbackfunction.php");
+$departmentRecord = getDepartmentAllData();
+$questions = getFeedbackQuestions('LMS_feedback_teacher_questions');
 ?>
 <!doctype html>
 <html lang="en">
@@ -44,9 +47,12 @@ table tbody tr:hover{background:rgba(153,153,0,0.1) !important; transition:all 3
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Select Department <span class="text-danger">*</span></span>
                             </div>
-                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
+                            <select id="department_id" name="department_id" onchange="getTeacher()" class="custom-select">
                                 <option value="" selected>Select</option>
-                                <option value="">All Dept. Names</option>
+                                <?php if($departmentRecord){
+                                foreach ($departmentRecord as $department) { ?>
+                                <option value="<?php echo $department['department_id']; ?>"><?php echo $department['department_name']; ?></option>
+                                <?php  } } ?>
                             </select>
                         </div>
                     </div>
@@ -56,7 +62,7 @@ table tbody tr:hover{background:rgba(153,153,0,0.1) !important; transition:all 3
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Select Teacher <span class="text-danger">*</span></span>
                             </div>
-                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
+                            <select id="teacher_id" name="teacher_id" class="custom-select">
                                 <option value="" selected>Select</option>
                                 <option value="">Selected Dept. Teacher Names</option>
                             </select>
@@ -68,6 +74,7 @@ table tbody tr:hover{background:rgba(153,153,0,0.1) !important; transition:all 3
             <div class="container mt-3 p-0">
             	<div class="row mb-2">
                     <div class="col-md-12">
+                        <form id="teacher-feedback-form" action="" method="post" action="">
                     	<div class="table-responsive">                        	
                             <table class="table table-bordered table-hover">
                                 <thead class="bg-light font-weight-bold">
@@ -78,156 +85,39 @@ table tbody tr:hover{background:rgba(153,153,0,0.1) !important; transition:all 3
                                     </tr>
                                 </thead>
                                 <tbody style="font-family:Viga; font-size:14px">
-                                    <tr>
-                                        <td class="align-middle">1.</td>
-                                        <td class="align-middle">Knowledge of Subject Matter</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
+                                    <?php 
+                                    $i = 1;
+                                    if($questions){
+                                    foreach ($questions as $key => $question) { ?>
+                                        <tr>
+                                            <td class="align-middle"><?php echo $i ?>.</td>
+                                            <td class="align-middle"><?php echo $question['que']; ?></td>
+                                            <td class="align-middle">
+                                                <input type="hidden" name="teacher_question_id[]" value="<?php echo $question['id'];  ?>" qid="<?php echo $question['id'];  ?>" qtext="<?php echo $question['que'];  ?>">
+                                                <select id="que<?php echo $question['id'];  ?>" name="que<?php echo $question['id'];  ?>" class="custom-select" >
                                                 <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">2.</td>
-                                        <td class="align-middle">Focus on Syllabi and Teacher the Subject Matter</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">3.</td>
-                                        <td class="align-middle">Communication Skills and Self Confidence</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">4.</td>
-                                        <td class="align-middle">Effectiveness in Managing the Class</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">5.</td>
-                                        <td class="align-middle">Delivery of Structured Lectures</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">6.</td>
-                                        <td class="align-middle">Completion of Syllabus of the Paper on time</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">7.</td>
-                                        <td class="align-middle">Punctuality in Class</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">8.</td>
-                                        <td class="align-middle">Regularity in Taking Classes</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">9.</td>
-                                        <td class="align-middle">Lecture Mode</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">10.</td>
-                                        <td class="align-middle">Mentoring</td>
-                                        <td class="align-middle">
-                                            <select id="XXXXXXXXX" name="XXXXXXXXX" class="custom-select">
-                                                <option value="" selected>Select</option>
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Very Good">Very Good</option>
-                                                <option value="Good">Good</option>
-                                                <option value="Average">Average</option>
-                                                <option value="Below Average">Below Average</option>
-                                            </select>
-                                        </td>
-                                    </tr>
+                                                <option value="5">Excellent</option>
+                                                <option value="4">Very Good</option>
+                                                <option value="3">Good</option>
+                                                <option value="2">Average</option>
+                                                <option value="1">Below Average</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    <?php $i++; } } ?>
                                 </tbody>
                             </table>
                         </div>
                         
                         <div class="text-center mt-3">
-                        	<a class="btn btn-info" href="javascript:void(0)">
+                            <input type="hidden" name="presentsemester" value="<?php echo $_SESSION["presentsemester"] ?>">
+                            <input type="hidden" name="student_roll_number" value="<?php echo $_SESSION["studcollegeRollNo"] ?>">
+                        	<a class="btn btn-info" href="javascript:void(0)" id="teacher-feedback-submit">
                                 <i class="fa-solid fa-clipboard-check"></i> Submit Feedback
                             </a>
+                            <!-- <input class="btn btn-info" type="submit" value="Submit Feedback"> -->
                         </div>
-                        
+                        </form>
                     </div>
                 </div>
             </div>            
@@ -236,5 +126,6 @@ table tbody tr:hover{background:rgba(153,153,0,0.1) !important; transition:all 3
         <?php include("../../footer.php");?>
     </div>	
     <?php include("../../footer_includes.php");?>    
+    <script src="../js/feedback_lms.js"></script>
 </body>
 </html>

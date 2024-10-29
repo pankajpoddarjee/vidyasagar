@@ -1273,7 +1273,7 @@ $allSemester = $semester1 + $semester2 + $semester3 + $semester4 + $semester5 + 
                         <select id="filter_sem" name="filter_sem" class="custom-select" onchange="this.form.submit()">
                             <!-- <option value="" selected>Select</option> -->
                             <?php if($current_sem >=1 ) { ?>
-                            <option value="I" <?php echo ($presentsemester=='I')?"selected":"" ?>>Semester - I</option>
+                            <option value="I" s<?php echo ($presentsemester=='I')?"selected":"" ?>>Semester - I</option>
                             <?php } ?>
                             <?php if($current_sem >=2 ) { ?>
                             <option value="II" <?php echo ($presentsemester=='II')?"selected":"" ?>>Semester - II</option>
@@ -1294,7 +1294,7 @@ $allSemester = $semester1 + $semester2 + $semester3 + $semester4 + $semester5 + 
                             <option value="VII" <?php echo ($presentsemester=='VII')?"selected":"" ?>>Semester - VII</option>
                             <?php } ?>
                             <?php if($current_sem >=8 ) { ?>
-                            <option value="VIII" <?php echo ($presentsemester=='VIII')?"selected":"" ?>>Semester - VIII</option>
+                            <option value="VIII" selected="<?php echo ($presentsemester=='VIII')?'selected':'' ?>">Semester - VIII</option>
                             <?php } ?>
                         </select>
                     </div>
@@ -2340,7 +2340,7 @@ $allSemester = $semester1 + $semester2 + $semester3 + $semester4 + $semester5 + 
 </html> 
 <script src="js/dashboard_lms.js"></script> 
 <script type="text/javascript">
-  document.getElementById('filter_sem').value = "<?php echo $_POST['filter_sem'];?>";
+  document.getElementById('filter_sem').value = "<?php echo isset($_POST['filter_sem'])?$_POST['filter_sem']:$presentsemester;?>";
   //Filter Table
   var tablefilter_Props = {
         col_0: "select",
